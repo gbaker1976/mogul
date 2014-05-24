@@ -1,5 +1,8 @@
 {
   "name": "mogul",
+  "engines": {
+    "node": "0.10.x"
+  },
   "version": "0.0.1",
   "description": "site service app with provisioning support",
   "main": "app.js",
