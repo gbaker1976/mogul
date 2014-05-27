@@ -13,7 +13,8 @@
   "author": "Garrett Baker",
   "license": "Proprietary",
   "devDependencies": {
-    "mocha": "~1.19.0"
+    "mocha": "~1.19.0",
+    "hbs": "~2.6.0"
   },
   "dependencies": {
     "express": "~4.3.1",
