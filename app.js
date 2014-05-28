@@ -24,7 +24,7 @@ app.get( /^\/js|css|images/, function( req, res, next ) {
 });
 
 // serve up pages for a given site (GET)
-app.get( /^.*\.html$/, function( req, res ) {
+app.get( /^\/|.*\.html$/, function( req, res ) {
 	if ( '/' === req.path ) {
 		req.path = '/index';
 	}
