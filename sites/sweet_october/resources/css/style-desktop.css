@@ -101,18 +101,18 @@
 	}
 	
 /*********************************************************************************/
-/* Tweet                                                                         */
+/* Quote                                                                         */
 /*********************************************************************************/
 	
-	#tweet
+	#quote
 	{
 		padding: 6em 0em;
 	}
 
-	#tweet blockquote
+	#quote blockquote
 	{
 		margin: 0;
-		padding: 1em 4em;
+		padding: 1em 4em .2em 4em;
 		line-height: 1.5em;
 		font-size: 1.8em;
 	}	

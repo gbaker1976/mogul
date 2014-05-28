@@ -771,7 +771,7 @@
 	#header
 	{
 		position: relative;
-		background: url(../images/header.jpg) no-repeat bottom center;
+		background: url(../images/bg.jpg) no-repeat top center;
 		background-size: cover;
 		text-align: center;
 	}
@@ -830,11 +830,12 @@
 
 		#nav-wrapper
 		{
-			background: rgba(0,0,0,.1);
+			background: rgba(0,0,0,.3);
 			position: absolute;
 			top: 0;
 			left: 0;
 			width: 100%;
+			height:150px;
 		}
 		
 		#nav > ul
@@ -850,6 +851,11 @@
 			border-right: 1px solid;
 			border-color: rgba(255,255,255,.1);
 		}
+
+			#nav > ul > li.logo 
+			{
+				width:200px;
+			}
 		
 			#nav > ul > li:last-child
 			{
@@ -933,7 +939,7 @@
 	{
 		position: relative;
 		text-align: center;
-		color: #774535;
+		color: rgba(255,255,255,.5);
 	}
 	
 	#copyright .container
@@ -941,13 +947,11 @@
 		padding: 3em 0em;
 		border-top: 1px solid;
 		border-color: rgba(255,255,255,.05);
-		color:  rgba(255,255,255,.1);
 	}
 	
 	#copyright a
 	{
 		text-decoration: none;
-		color:  rgba(255,255,255,.2);
 	}
 	
 /*********************************************************************************/
@@ -978,10 +982,10 @@
 	}
 
 /*********************************************************************************/
-/* Tweet                                                                         */
+/* Quote                                                                         */
 /*********************************************************************************/
 	
-	#tweet
+	#quote
 	{
 		position: relative;
 		text-align: center;
@@ -990,7 +994,7 @@
 		background-size: cover;
 	}
 
-		#tweet:before
+		#quote:before
 		{
 			content: '';
 			position: absolute;
@@ -1001,14 +1005,12 @@
 			background: rgba(64,64,64,0.5);
 		}
 	
-		#tweet section
+		#quote section
 		{
-			border-top: 1px solid;
-			border-bottom: 1px solid;
-			border-color: rgba(255,255,255,.1);
+			
 		}
 
-		#tweet blockquote
+		#quote blockquote
 		{
 			position: relative;
 			border: none;
@@ -1016,3 +1018,9 @@
 			font-weight: 300;
 			color: rgba(255,255,255,.6);
 		}	
+
+		#quote .attrib 
+		{
+			text-align:right;
+			font-weight:small;
+		}
