@@ -41,7 +41,7 @@ app.use( function( req, res, next ){
 			},
 			'/shop' : {
 				type: 'link',
-				data: 'http://www.etsy.com/sweetoctobershop'
+				data: 'http://sweetoctobershop.etsy.com/'
 			},
 			'/contact' : {
 				type: 'page',
