@@ -19,7 +19,7 @@ app.use( function( req, res, next ){
 				type: 'page',
 				template: 'index.html',
 				data: {
-					title: 'Main',
+					title: 'Sweet October: Intoxicating Scents for Lovers of the Dark',
 					content: '<h1>Main</h1>',
 					quote: {
 						author: 'Mark Twain',
@@ -31,7 +31,7 @@ app.use( function( req, res, next ){
 				type: 'page',
 				template: 'left-sidebar.html',
 				data: {
-					title: 'Perfumes',
+					title: 'Sweet October: Perfumes - Intoxicating Scents for Lovers of the Dark',
 					content: '<h1>Perfumes</h1>',
 					quote: {
 						author: 'Henry Wadsworth Longfellow',
@@ -43,7 +43,7 @@ app.use( function( req, res, next ){
 				type: 'page',
 				template: 'right-sidebar.html',
 				data: {
-					title: 'About',
+					title: 'Sweet October: About - Intoxicating Scents for Lovers of the Dark',
 					content: '<h1>About</h1>',
 					quote: {
 						author: 'Mark Twain',
@@ -59,7 +59,7 @@ app.use( function( req, res, next ){
 				type: 'page',
 				template: 'no-sidebar.html',
 				data: {
-					title: 'Contact',
+					title: 'Sweet October: Contact - Intoxicating Scents for Lovers of the Dark',
 					content: '<h1>Contact</h1>',
 					quote: {
 						author: 'Henry Wadsworth Longfellow',
