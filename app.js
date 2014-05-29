@@ -7,31 +7,76 @@ app.set( 'views', __dirname + '/sites' );
 app.engine( 'html', hbs.__express );
 app.set( 'view engine', 'html' );
 
+// 1. log all requests
 app.use( logfmt.requestLogger() );
+
+// 2. establish account context
 app.use( function( req, res, next ){
 	req.site = {
-		templatePath: 'sweet_october/templates',
-		resourcePath: 'sweet_october/resources'
+		id: 'sweet_october',
+		pages: {
+			'/' : {
+				type: 'page',
+				template: 'index.html',
+				data: {
+					title: 'Main',
+					content: '<h1>Main</h1>'
+				}
+			},
+			'/perfumes' : {
+				type: 'page',
+				template: 'left-sidebar.html',
+				data: {
+					title: 'Perfumes',
+					content: '<h1>Perfumes</h1>'
+				}
+			},
+			'/about' : {
+				type: 'page',
+				template: 'right-sidebar.html',
+				data: {
+					title: 'About',
+					content: '<h1>About</h1>'
+				}
+			},
+			'/shop' : {
+				type: 'link',
+				data: 'http://www.etsy.com/sweetoctobershop'
+			},
+			'/contact' : {
+				type: 'page',
+				template: 'no-sidebar.html',
+				data: {
+					title: 'Contact',
+					content: '<h1>Contact</h1>'
+				}
+			}
+		}
 	};
 
 	next();
 });
 
-// serve up resources for a given site
+// 3. serve static resources
 app.get( /^\/js|css|images/, function( req, res, next ) {
-	var path = __dirname + '/sites/' + req.site.resourcePath + req.path;
+	var path = __dirname + '/sites/' + req.site.id + '/resources' + req.path;
 	res.sendfile( path );
 });
 
-// serve up pages for a given site (GET)
+// 4. serve site pages
 app.get( /^\/|.*\.html$/, function( req, res ) {
-	if ( '/' === req.path ) {
-		req.path = '/index';
-	}
 	
-	res.render( req.site.templatePath + req.path );
+	var page = req.site.pages[ req.path ];
+
+	if ( page ) {
+		res.render( 
+			req.site.id + '/templates/' + page.template, 
+			page.data 
+		);
+	}
 });
 
+// 5. handle 404
 app.use( function( req, res ) {
 	res.status( 404 );
 	res.render( 
@@ -42,6 +87,7 @@ app.use( function( req, res ) {
 	);
 });
 
+// 6. handle 500
 app.use( function( err, req, res ) {
 	res.status( 500 );
 	res.render( 
