@@ -71,6 +71,7 @@ app.get( /.*/, function( req, res ) {
 	if ( page ) {
 		if ( 'link' === page.type ) {
 			res.location( page.data );
+			res.send( 302 );
 		} else {
 			res.render( 
 				req.site.id + '/templates/' + page.template, 
