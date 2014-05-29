@@ -64,15 +64,19 @@ app.get( /^\/js|css|images/, function( req, res, next ) {
 });
 
 // 4. serve site pages
-app.get( /^\/|.*\.html$/, function( req, res ) {
+app.get( /.*/, function( req, res ) {
 	
 	var page = req.site.pages[ req.path ];
 
 	if ( page ) {
-		res.render( 
-			req.site.id + '/templates/' + page.template, 
-			page.data 
-		);
+		if ( 'link' === page.type ) {
+			res.location( page.data );
+		} else {
+			res.render( 
+				req.site.id + '/templates/' + page.template, 
+				page.data 
+			);
+		}
 	}
 });
 
