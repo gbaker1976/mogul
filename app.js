@@ -34,8 +34,8 @@ app.use( function( req, res, next ){
 					title: 'Perfumes',
 					content: '<h1>Perfumes</h1>',
 					quote: {
-						author: 'Mark Twain',
-						content: 'Everyone is a moon and has a dark side which he never shows to anybody.'
+						author: 'Henry Wadsworth Longfellow',
+						content: 'Into each life some rain must fall, somedays must be dark and dreary.'
 					}
 				}
 			},
@@ -62,8 +62,8 @@ app.use( function( req, res, next ){
 					title: 'Contact',
 					content: '<h1>Contact</h1>',
 					quote: {
-						author: 'Mark Twain',
-						content: 'Everyone is a moon and has a dark side which he never shows to anybody.'
+						author: 'Henry Wadsworth Longfellow',
+						content: 'Into each life some rain must fall, somedays must be dark and dreary.'
 					}
 				}
 			}
