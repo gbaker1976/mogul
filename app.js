@@ -20,7 +20,11 @@ app.use( function( req, res, next ){
 				template: 'index.html',
 				data: {
 					title: 'Main',
-					content: '<h1>Main</h1>'
+					content: '<h1>Main</h1>',
+					quote: {
+						author: 'Mark Twain',
+						content: 'Everyone is a moon and has a dark side which he never shows to anybody.'
+					}
 				}
 			},
 			'/perfumes' : {
@@ -28,7 +32,11 @@ app.use( function( req, res, next ){
 				template: 'left-sidebar.html',
 				data: {
 					title: 'Perfumes',
-					content: '<h1>Perfumes</h1>'
+					content: '<h1>Perfumes</h1>',
+					quote: {
+						author: 'Mark Twain',
+						content: 'Everyone is a moon and has a dark side which he never shows to anybody.'
+					}
 				}
 			},
 			'/about' : {
@@ -36,7 +44,11 @@ app.use( function( req, res, next ){
 				template: 'right-sidebar.html',
 				data: {
 					title: 'About',
-					content: '<h1>About</h1>'
+					content: '<h1>About</h1>',
+					quote: {
+						author: 'Mark Twain',
+						content: 'Everyone is a moon and has a dark side which he never shows to anybody.'
+					}
 				}
 			},
 			'/shop' : {
@@ -48,7 +60,11 @@ app.use( function( req, res, next ){
 				template: 'no-sidebar.html',
 				data: {
 					title: 'Contact',
-					content: '<h1>Contact</h1>'
+					content: '<h1>Contact</h1>',
+					quote: {
+						author: 'Mark Twain',
+						content: 'Everyone is a moon and has a dark side which he never shows to anybody.'
+					}
 				}
 			}
 		}
