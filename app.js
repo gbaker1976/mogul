@@ -80,7 +80,7 @@ app.get( /^\/js|css|images/, function( req, res, next ) {
 });
 
 // 4. serve site pages
-app.get( /.*/, function( req, res ) {
+app.get( /.*/, function( req, res, next ) {
 	
 	var page = req.site.pages[ req.path ];
 
@@ -94,6 +94,8 @@ app.get( /.*/, function( req, res ) {
 				page.data 
 			);
 		}
+	} else {
+		next();
 	}
 });
 
