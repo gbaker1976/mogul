@@ -103,9 +103,10 @@ app.get( /.*/, function( req, res, next ) {
 app.use( function( req, res ) {
 	res.status( 404 );
 	res.render( 
-			'404', 
+			'no-sidebar', 
 			{
-				title: '404: Not Found'
+				title: '404: Not Found',
+				content: '<h1>Not found...</h1>'
 			} 
 	);
 });
@@ -114,9 +115,10 @@ app.use( function( req, res ) {
 app.use( function( err, req, res ) {
 	res.status( 500 );
 	res.render( 
-			'500', 
+			'no-sidebar', 
 			{
-				title: '500: Oops...'
+				title: '500: Error',
+				content: '<h1>Oops...</h1>'
 			} 
 	);
 });
