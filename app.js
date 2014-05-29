@@ -7,10 +7,10 @@ app.set( 'views', __dirname + '/sites' );
 app.engine( 'html', hbs.__express );
 app.set( 'view engine', 'html' );
 
-// 1. log all requests
+// log all requests
 app.use( logfmt.requestLogger() );
 
-// 2. establish account context
+// establish account context
 app.use( function( req, res, next ){
 	req.site = {
 		id: 'sweet_october',
@@ -67,19 +67,35 @@ app.use( function( req, res, next ){
 					}
 				}
 			}
+		},
+		forms: {
+			'/contact' : function( req, res ) {
+
+			}
 		}
 	};
 
 	next();
 });
 
-// 3. serve static resources
+// handle forms
+app.use( '/form/:formId', function( req, res, next ){
+	var processor = null;
+
+	if ( req.site.forms ) {
+		if ( processor = req.site.forms[ req.param( 'formId' )] ) {
+			processor.call( {}, req, res );
+		}
+	}
+});
+
+// serve static content
 app.get( /^\/js|css|images/, function( req, res, next ) {
 	var path = __dirname + '/sites/' + req.site.id + '/resources' + req.path;
 	res.sendfile( path );
 });
 
-// 4. serve site pages
+// handle dynamic pages
 app.get( /.*/, function( req, res, next ) {
 	
 	var page = req.site.pages[ req.path ];
@@ -99,7 +115,7 @@ app.get( /.*/, function( req, res, next ) {
 	}
 });
 
-// 5. handle 404
+// handle 404
 app.use( function( req, res ) {
 	res.status( 404 );
 	res.render( 
@@ -111,7 +127,7 @@ app.use( function( req, res ) {
 	);
 });
 
-// 6. handle 500
+// handle 500
 app.use( function( err, req, res ) {
 	res.status( 500 );
 	res.render( 
