@@ -103,7 +103,7 @@ app.get( /.*/, function( req, res, next ) {
 app.use( function( req, res ) {
 	res.status( 404 );
 	res.render( 
-			req.site.id + '/templates/no-sidebar.html',
+			req.site.id + '/templates/404.html',
 			{
 				title: '404: Not Found',
 				content: '<h1>Not found...</h1>'
@@ -115,7 +115,7 @@ app.use( function( req, res ) {
 app.use( function( err, req, res ) {
 	res.status( 500 );
 	res.render( 
-			req.site.id + '/templates/no-sidebar.html', 
+			req.site.id + '/templates/500.html', 
 			{
 				title: '500: Error',
 				content: '<h1>Oops...</h1>'
