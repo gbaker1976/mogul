@@ -59,8 +59,8 @@ app.use( function( req, res, next ){
 				data: 'http://sweetoctobershop.etsy.com/'
 			},
 			'/contact' : {
-				type: 'page',
-				template: 'no-sidebar.html',
+				type: 'form',
+				template: 'form.html',
 				data: {
 					title: 'Sweet October: Contact - Intoxicating Scents for Lovers of the Dark',
 					content: '<header><h2>Contact</h2></header>',
@@ -68,11 +68,7 @@ app.use( function( req, res, next ){
 						author: 'Henry Wadsworth Longfellow',
 						content: 'Into each life some rain must fall, somedays must be dark and dreary.'
 					}
-				}
-			}
-		},
-		forms: {
-			'/contact' : {
+				},
 				fields: [{
 					textInput: true,
 					id: 'name',
@@ -93,18 +89,19 @@ app.use( function( req, res, next ){
 });
 
 // handle forms
-app.get( '/form/:formId', function( req, res, next ){
-	var form = req.site.forms[ req.param( 'formId' )];
-	var fields = form ? form.fields : [];
+function renderFormHtml( page ){
+	var fields = page.fields;
 	var field = null;
 	var formHtml = '';
+	var hbsInstance = hbs.create();
 
 	while( field = fields.shift() ) {
-		formHtml += hbs.create().compile( fieldsTemplate )( field );
+		formHtml += hbsInstance.compile( fieldsTemplate )( field );
 	}
 
-	res.render( req.site.id + '/templates/no-sidebar.html', { content: formHtml } );
-});
+	return formHtml;
+}
+
 app.post( '/form/:formId', function( req, res, next ){
 	var processor = null;
 
@@ -127,15 +124,22 @@ app.get( /.*/, function( req, res, next ) {
 	var page = req.site.pages[ req.path ];
 
 	if ( page ) {
-		if ( 'link' === page.type ) {
-			res.location( page.data );
-			res.send( 302 );
-		} else {
-			res.render( 
-				req.site.id + '/templates/' + page.template, 
-				page.data 
-			);
+		switch ( page.type ) {
+			case 'link' :
+				res.location( page.data );
+				res.send( 302 );
+				return;
+			break;
+			case 'form' :
+				page.data.formHtml = renderFormHtml( page );
+			break;
+				
 		}
+
+		res.render( 
+			req.site.id + '/templates/' + page.template, 
+			page.data 
+		);
 	} else {
 		next();
 	}
