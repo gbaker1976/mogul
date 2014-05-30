@@ -21,9 +21,9 @@ app.use( contextHandler );
 app.use( '/form/:formId', formHandler );
 
 // serve static content
-app.use( '/js', resourceHandler );
-app.use( '/css', resourceHandler );
-app.use( '/images', resourceHandler );
+app.use( '/js', resourceHandler.script );
+app.use( '/css', resourceHandler.stylesheet );
+app.use( '/images', resourceHandler.image );
 
 // handle dynamic pages
 app.get( /.*/, pageHandler );
