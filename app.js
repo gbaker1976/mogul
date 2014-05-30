@@ -1,7 +1,10 @@
 var express = require( 'express' );
 var logfmt = require( 'logfmt' );
 var hbs = require( 'hbs' );
+var fs = require( 'fs' );
 var app = express();
+var fieldsTemplatePath = __dirname + '/sites/fields.html';
+var fieldsTemplate = '';
 
 app.set( 'views', __dirname + '/sites' );
 app.engine( 'html', hbs.__express );
@@ -60,7 +63,7 @@ app.use( function( req, res, next ){
 				template: 'no-sidebar.html',
 				data: {
 					title: 'Sweet October: Contact - Intoxicating Scents for Lovers of the Dark',
-					content: '<h1>Contact</h1>',
+					content: '<header><h2>Contact</h2></header>',
 					quote: {
 						author: 'Henry Wadsworth Longfellow',
 						content: 'Into each life some rain must fall, somedays must be dark and dreary.'
@@ -69,8 +72,19 @@ app.use( function( req, res, next ){
 			}
 		},
 		forms: {
-			'/contact' : function( req, res ) {
+			'/contact' : {
+				fields: [{
+					textInput: true,
+					id: 'name',
+					defaultValue: 'foo',
+					placeholder: 'please enter your name',
+					maxLength: 50
+				}],
+				processor: function( req, res ) {
+					res.send( 201, {
 
+					});
+				}
 			}
 		}
 	};
@@ -79,7 +93,19 @@ app.use( function( req, res, next ){
 });
 
 // handle forms
-app.use( '/form/:formId', function( req, res, next ){
+app.get( '/form/:formId', function( req, res, next ){
+	var form = req.site.forms[ req.param( 'formId' )];
+	var fields = form ? form.fields : [];
+	var field = null;
+	var formHtml = '';
+
+	for( field in form.fields ) {
+		formHtml += hbs.create().compile( fieldsTemplate )( field );
+	}
+
+	res.render( 'no-sidebar.html', { content: formHtml } );
+});
+app.post( '/form/:formId', function( req, res, next ){
 	var processor = null;
 
 	if ( req.site.forms ) {
@@ -140,6 +166,14 @@ app.use( function( err, req, res ) {
 });
 
 var port = Number( process.env.PORT || 5000 );
-app.listen( port, function() {
-	console.log( 'Listening on ' + port );
+
+// fields template before starting the app;
+fs.readFile( fieldsTemplatePath, function( err, file ) {
+	if ( err ) throw err;
+
+	fieldsTemplate = file;
+	
+	app.listen( port, function() {
+		console.log( 'Listening on ' + port );
+	});
 });
