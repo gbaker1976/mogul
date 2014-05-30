@@ -93,10 +93,9 @@ function renderFormHtml( page ){
 	var fields = page.fields;
 	var field = null;
 	var formHtml = '';
-	var hbsInstance = hbs.create();
 
 	while( field = fields.shift() ) {
-		formHtml += hbsInstance.compile( fieldsTemplate )( field );
+		formHtml += hbs.handlebars.compile( fieldsTemplate )( field );
 	}
 
 	return formHtml;
