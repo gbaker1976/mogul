@@ -1,0 +1,71 @@
+{
+		id: 'sweet_october',
+		pages: {
+			'/' : {
+				type: 'page',
+				template: 'index.html',
+				data: {
+					title: 'Sweet October: Intoxicating Scents for Lovers of the Dark',
+					content: '<header><h2>Intoxicating Scents for Lovers of the Dark</h2></header>',
+					quote: {
+						author: 'Mark Twain',
+						content: 'Everyone is a moon and has a dark side which he never shows to anybody.'
+					}
+				}
+			},
+			'/perfumes' : {
+				type: 'page',
+				template: 'left-sidebar.html',
+				data: {
+					title: 'Sweet October: Perfumes - Intoxicating Scents for Lovers of the Dark',
+					content: '<header><h2>Perfumes</h2><span class="byline">This is a byline.</span></header>',
+					quote: {
+						author: 'Henry Wadsworth Longfellow',
+						content: 'Into each life some rain must fall, somedays must be dark and dreary.'
+					}
+				}
+			},
+			'/about' : {
+				type: 'page',
+				template: 'right-sidebar.html',
+				data: {
+					title: 'Sweet October: About - Intoxicating Scents for Lovers of the Dark',
+					content: '<header><h2>About Sweet October</h2></header>',
+					quote: {
+						author: 'Mark Twain',
+						content: 'Everyone is a moon and has a dark side which he never shows to anybody.'
+					}
+				}
+			},
+			'/shop' : {
+				type: 'link',
+				data: 'http://sweetoctobershop.etsy.com/'
+			},
+			'/contact' : {
+				type: 'form',
+				template: 'form.html',
+				data: {
+					title: 'Sweet October: Contact - Intoxicating Scents for Lovers of the Dark',
+					content: '<header><h2>Contact</h2></header>',
+					quote: {
+						author: 'Henry Wadsworth Longfellow',
+						content: 'Into each life some rain must fall, somedays must be dark and dreary.'
+					}
+				},
+				fields: [{
+					textInput: true,
+					label: 'Full Name',
+					id: 'name',
+					name: 'name',
+					defaultValue: 'foo',
+					placeholder: 'please enter your name',
+					maxLength: 50
+				}],
+				processor: function( req, res ) {
+					res.send( 201, {
+
+					});
+				}
+			}
+		}
+	};
