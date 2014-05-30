@@ -99,7 +99,7 @@ app.get( '/form/:formId', function( req, res, next ){
 	var field = null;
 	var formHtml = '';
 
-	for( field in form.fields ) {
+	while( field = fields.shift() ) {
 		formHtml += hbs.create().compile( fieldsTemplate )( field );
 	}
 
