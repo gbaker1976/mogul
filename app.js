@@ -71,7 +71,9 @@ app.use( function( req, res, next ){
 				},
 				fields: [{
 					textInput: true,
+					label: 'Full Name',
 					id: 'name',
+					name: 'name',
 					defaultValue: 'foo',
 					placeholder: 'please enter your name',
 					maxLength: 50
