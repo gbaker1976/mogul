@@ -103,7 +103,7 @@ app.get( '/form/:formId', function( req, res, next ){
 		formHtml += hbs.create().compile( fieldsTemplate )( field );
 	}
 
-	res.render( 'no-sidebar.html', { content: formHtml } );
+	res.render( req.site.id + '/templates/no-sidebar.html', { content: formHtml } );
 });
 app.post( '/form/:formId', function( req, res, next ){
 	var processor = null;
