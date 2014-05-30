@@ -18,6 +18,8 @@
   "dependencies": {
     "express": "~4.3.1",
     "logfmt": "~1.1.2",
-    "hbs": "~2.6.0"
+    "hbs": "~2.6.0",
+    "pkgcloud": "~0.9.5",
+    "mongodb": "~1.4.5"
   }
 }

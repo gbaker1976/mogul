@@ -20,7 +20,7 @@ app.use( function( req, res, next ){
 				template: 'index.html',
 				data: {
 					title: 'Sweet October: Intoxicating Scents for Lovers of the Dark',
-					content: '<h1>Main</h1>',
+					content: '<header><h2>Intoxicating Scents for Lovers of the Dark</h2></header>',
 					quote: {
 						author: 'Mark Twain',
 						content: 'Everyone is a moon and has a dark side which he never shows to anybody.'
@@ -32,7 +32,7 @@ app.use( function( req, res, next ){
 				template: 'left-sidebar.html',
 				data: {
 					title: 'Sweet October: Perfumes - Intoxicating Scents for Lovers of the Dark',
-					content: '<h1>Perfumes</h1>',
+					content: '<header><h2>Perfumes</h2><span class="byline">This is a byline.</span></header>',
 					quote: {
 						author: 'Henry Wadsworth Longfellow',
 						content: 'Into each life some rain must fall, somedays must be dark and dreary.'
@@ -44,7 +44,7 @@ app.use( function( req, res, next ){
 				template: 'right-sidebar.html',
 				data: {
 					title: 'Sweet October: About - Intoxicating Scents for Lovers of the Dark',
-					content: '<h1>About</h1>',
+					content: '<header><h2>About Sweet October</h2></header>',
 					quote: {
 						author: 'Mark Twain',
 						content: 'Everyone is a moon and has a dark side which he never shows to anybody.'
