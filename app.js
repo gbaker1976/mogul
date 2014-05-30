@@ -171,7 +171,7 @@ app.use( function( err, req, res ) {
 var port = Number( process.env.PORT || 5000 );
 
 // fields template before starting the app;
-fs.readFile( fieldsTemplatePath, function( err, file ) {
+fs.readFile( fieldsTemplatePath, function( err, { encoding: 'utf-8' }, file ) {
 	if ( err ) throw err;
 
 	fieldsTemplate = file;
