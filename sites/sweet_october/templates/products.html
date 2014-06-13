@@ -15,6 +15,7 @@
 			<link rel="stylesheet" href="/css/style.css" />
 			<link rel="stylesheet" href="/css/style-desktop.css" />
 		</noscript>
+		<link rel="stylesheet" href="/css/switcher.css" />
 	</head>
 	<body>
 
@@ -37,14 +38,55 @@
 
 	<!-- Main -->
 		<div id="main">
-			<div id="content" class="container">
-				<section>
+			<div class="container">
+				<div class="row">
+
+					<!-- Sidebar -->
+					<div id="sidebar" class="4u">
+						<section>
+							<header>
+								<h2>Perfumes</h2>
+							</header>
+							<div class="row">
+								<section class="12u">
+									<ul class="default" id="productSwitcherNav">
+										{{#products}}
+										<li><a data-switcher-item="true" href="#productSwitcher-item{{id}}">{{title}}</a></li>
+										{{/products}}
+									</ul>
+								</section>
+							</div>
+						</section>
+					</div>
 					
-					{{{content}}}
+					<!-- Content -->
+					<div id="content" class="8u skel-cell-important">
+						<div data-switcher="true" data-nav="productSwitcherNav" id="productSwitcher">
+							{{#products}}
+								<section data-switcher-item="true" id="productSwitcher-item{{id}}">
+									<header>
+										<h2>{{title}}</h2>
+									</header>
+									<h3>About</h3>
+									<p>{{about}}</p>
+									<h3>Ingredients</h3>
+									<p>{{ingredients}}</p>
+									<h3>Carrier Oil</h3>
+									<p>{{carrierOil}}</p>
+									<h3>How To Use</h3>
+									<p>{{howToUse}}</p>
+									<h3>Safety</h3>
+									<p>{{safety}}</p>
+									<h3>Packaging</h3>
+									<p>{{packaging}}</p>
+									<h3>Shipping</h3>
+									<p>{{shipping}}</p>
+								</section>
+							{{/products}}
+						</div>
+					</div>
 
-					{{{formHtml}}}						
-
-				</section>
+				</div>
 			</div>
 		</div>
 	<!-- /Main -->
@@ -87,5 +129,6 @@
 		</div>
 
 
+		<script src="/js/switcher.js"></script>
 	</body>
 </html>
