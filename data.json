@@ -133,7 +133,7 @@
 				"data": "http://sweetoctobershop.etsy.com/"
 			},
 			"/contact" : {
-				"type": "form",
+				"type": "page",
 				"template": "form.html",
 				"data": {
 					"title": "Sweet October: Contact - Intoxicating Scents for Lovers of the Dark",
