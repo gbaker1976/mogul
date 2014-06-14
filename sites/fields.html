@@ -2,6 +2,10 @@
 {{#label}}<label for="{{id}}">{{label}}</label>{{/label}}
 <input type="text" id="{{id}}" value="{{defaultValue}}" maxlength="{{maxLength}}" placeholder="{{placeholder}}" />
 {{/textInput}}
+{{#emailInput}}
+{{#label}}<label for="{{id}}">{{label}}</label>{{/label}}
+<input type="email" id="{{id}}" value="{{defaultValue}}" maxlength="{{maxLength}}" placeholder="{{placeholder}}" />
+{{/emailInput}}
 {{#textAreaInput}}
 {{#label}}<label for="{{id}}">{{label}}</label>{{/label}}
 <textarea id="{{id}}">{{defaultValue}}</textarea>

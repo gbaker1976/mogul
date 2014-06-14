@@ -137,21 +137,32 @@
 				"template": "form.html",
 				"data": {
 					"title": "Sweet October: Contact - Intoxicating Scents for Lovers of the Dark",
-					"content": "<header><h2>Contact</h2></header>",
+					"content": "<header><h2>Contact</h2></header><div><p><strong>Contact me via email: </strong><a href='mailto:sweetoctobershop@gmail.com'>sweetoctobershop@gmail.com</a></p></div>",
+					"fields": [
+						{
+							"textInput": true,
+							"label": "Full Name",
+							"id": "name",
+							"name": "name",
+							"defaultValue": "foo",
+							"placeholder": "please enter your name",
+							"maxLength": 50
+						},
+						{
+							"emailInput": true,
+							"label": "Email Address",
+							"id": "emailAddress",
+							"name": "name",
+							"defaultValue": "foo",
+							"placeholder": "please enter your name",
+							"maxLength": 50
+						}
+					],
 					"quote": {
 						"author": "Henry Wadsworth Longfellow",
 						"content": "Into each life some rain must fall, somedays must be dark and dreary."
 					}
-				},
-				"fields": [{
-					"textInput": true,
-					"label": "Full Name",
-					"id": "name",
-					"name": "name",
-					"defaultValue": "foo",
-					"placeholder": "please enter your name",
-					"maxLength": 50
-				}]
+				}
 			}
 		}
 	}
