@@ -1,5 +1,5 @@
 var express = require( 'express' );
-var logfmt = require( 'logfmt' );
+//var logfmt = require( 'logfmt' );
 var contextHandler = require( './lib/context-handler' );
 var pageHandler = require( './lib/page-handler' );
 var formHandler = require( './lib/form-handler' );
@@ -12,7 +12,7 @@ app.engine( 'html', hbs.__express );
 app.set( 'view engine', 'html' );
 
 // log all requests
-app.use( logfmt.requestLogger() );
+//app.use( logfmt.requestLogger() );
 
 // establish account context
 app.use( contextHandler );
