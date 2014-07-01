@@ -13,7 +13,9 @@
   "author": "Garrett Baker",
   "license": "Proprietary",
   "devDependencies": {
-    "mocha": "~1.19.0"
+    "mocha": "~1.19.0",
+    "restify": "~2.8.1",
+    "couchbase": "~1.2.4"
   },
   "dependencies": {
     "express": "~4.3.1",
