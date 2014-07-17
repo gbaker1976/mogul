@@ -1,3 +1,4 @@
+var uuid = require( 'node-uuid' );
 var Module = function(){
 
 	this.initialize = function( api, server ){
@@ -9,7 +10,7 @@ var Module = function(){
 		if ( 
 				!req.authorization || 
 				req.authorization.scheme !== 'Bearer' || 
-				req.authorization.credentials !== 'vdwwq47w5rerx4beykf3nzqf' 
+				req.authorization.credentials !== 'foo' 
 			) {
 				res.send( 401, 'unauthorized' );
 				res.end();
@@ -29,6 +30,10 @@ var Module = function(){
 		handlers.push( handler );
 
 		return handlers;
+	};
+
+	this.newId = function(){
+		return uuid.v1();
 	};
 
 	this.get = function( route, handler ){

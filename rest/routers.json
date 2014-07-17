@@ -2,6 +2,7 @@
 	"routers": [
 		{ "name": "accounts" },
 		{ "name": "sites" },
-		{ "name": "assets" }
+		{ "name": "elements" },
+		{ "name": "publish" }
 	]
 }
