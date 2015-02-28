@@ -1,0 +1,37 @@
+[data-container] {
+	height:100%;
+	width:100%;
+
+	display:flex;
+	flex-flow:column nowrap;
+}
+
+[data-column]{
+
+	display:flex;
+	flex: 1 0 auto;
+	flex-flow:column wrap;
+
+	&.detail{
+		flex:3 0 auto;
+	}
+}
+
+.gutter {
+	margin:2em;
+}
+
+#manage {
+	width:200px;
+}
+
+[data-row]{
+
+	display:flex;
+	flex: 1 0 auto;
+	flex-flow:row nowrap;
+}
+
+[data-cell] {
+	flex: 1 0 0;
+}
