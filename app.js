@@ -13,16 +13,16 @@ app.engine( 'html', hbs.__express );
 app.set( 'view engine', 'html' );
 
 // serve application UI
-app.use( '/admin', function( req, res, next ){
-	fs.realpath( 'admin' + req.path, function( err, path ){
+app.use( '/', function( req, res, next ){
+	fs.realpath( '.' + req.path, function( err, path ){
 		if ( err ) throw err;
 		res.sendfile( path );
 	});
 	return false;
 });
 
-var port = Number( process.env.PORT || 5000 );	
-	
+var port = Number( process.env.PORT || 5000 );
+
 app.listen( port, function() {
 	console.log( 'Listening on ' + port );
 });

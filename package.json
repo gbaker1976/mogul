@@ -13,11 +13,15 @@
   "author": "Garrett Baker",
   "license": "Proprietary",
   "devDependencies": {
-    "mocha": "~1.19.0",
-    "restify": "~2.8.1",
     "couchbase": "~1.2.4",
+    "gulp": "^3.8.11",
+    "gulp-less": "^3.0.1",
+    "gulp-minify-css": "^0.5.0",
+    "mocha": "~1.19.0",
     "node-uuid": "~1.4.1",
-    "underscore": "~1.6.0"
+    "restify": "~2.8.1",
+    "underscore": "~1.6.0",
+    "wrench": "^1.5.8"
   },
   "dependencies": {
     "express": "~4.3.1",
