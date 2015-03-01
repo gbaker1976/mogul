@@ -15,7 +15,11 @@ app.set( 'view engine', 'html' );
 // serve application UI
 app.use( '/', function( req, res, next ){
 	fs.realpath( '.' + req.path, function( err, path ){
-		if ( err ) throw err;
+		if ( err ) {
+			console.log( req.path );
+			res.send( 'Not found', 400 );
+			return false;
+		}
 		res.sendfile( path );
 	});
 	return false;
