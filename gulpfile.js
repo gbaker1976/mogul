@@ -56,4 +56,15 @@ gulp.task(
 	}
 );
 
-gulp.task( 'default', [ 'clean-dist', 'app-less', 'copy-themes', 'copy-html', 'copy-app' ] );
+/** FOR PROTOTYPING */
+
+gulp.task(
+	'copy-sites',
+	function ( cb ) {
+		copyFile( './src/sites.html', './dist/sites.html', cb );
+	}
+);
+
+/* FOR PROTOTYPING **/
+
+gulp.task( 'default', [ 'clean-dist', 'app-less', 'copy-themes', 'copy-html', 'copy-app', 'copy-sites' ] );
