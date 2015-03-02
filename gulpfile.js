@@ -4,6 +4,8 @@ var minifyCss = require( 'gulp-minify-css' );
 var path = require( 'path' );
 var fs = require( 'fs' );
 var wrench = require( 'wrench' );
+var browserSync = require( 'browser-sync' );
+var reload = browserSync.reload;
 
 var copyFile = function( src, dest, cb ){
 	fs.readFile( src, function( err, data ){
@@ -18,14 +20,18 @@ gulp.task(
 		return gulp.src( './src/less/**/_all.less' )
 		.pipe(
 			less({
-				paths: [ path.join( __dirname, 'less', 'lib') ],
-				filename: 'main.css'
+				paths: [ path.join( __dirname, 'less', 'lib') ]
 			})
 		)
 		.pipe( minifyCss() )
 		.pipe( gulp.dest( './dist/css' ) );
 	}
 );
+
+gulp.task( 'app-js', function(){
+	return gulp.src( './src/js/app.js' )
+	.pipe( gulp.dest( './dist/js' ) );
+});
 
 gulp.task(
 	'clean-dist',
@@ -38,33 +44,31 @@ gulp.task(
 gulp.task(
 	'copy-themes',
 	function ( cb ) {
-		wrench.copyDirRecursive( './src/themes', './dist/themes', cb );
+		wrench.copyDirRecursive( './src/themes', './dist/themes', { forceDelete: true }, cb );
 	}
 );
 
 gulp.task(
 	'copy-html',
 	function ( cb ) {
-		copyFile( './src/index.html', './dist/index.html', cb );
-	}
-);
-
-gulp.task(
-	'copy-app',
-	function ( cb ) {
-		copyFile( './src/js/app.js', './dist/app.js', cb );
-	}
-);
-
-/** FOR PROTOTYPING */
-
-gulp.task(
-	'copy-sites',
-	function ( cb ) {
+		copyFile( './src/index.html', './dist/index.html' );
 		copyFile( './src/sites.html', './dist/sites.html', cb );
 	}
 );
 
-/* FOR PROTOTYPING **/
+gulp.task( 'serve', function() {
+	browserSync({
+		server: {
+			baseDir: './'
+		}
+	});
+});
 
-gulp.task( 'default', [ 'clean-dist', 'app-less', 'copy-themes', 'copy-html', 'copy-app', 'copy-sites' ] );
+gulp.watch( 'js/**/*.js', { cwd: 'src' },  [ 'app-js' ] );
+gulp.watch( 'less/**/*.less', { cwd: 'src' }, [ 'app-less' ] );
+gulp.watch( 'themes/**/*', { cwd: 'src' }, [ 'copy-themes' ] );
+gulp.watch( '*.html', { cwd: 'src' }, [ 'copy-html' ] );
+
+gulp.watch( [ 'js/**/*.js', 'css/**/*.css', '**/*.html' ], { cwd: 'dist' },  reload );
+
+gulp.task( 'default', [ 'clean-dist', 'app-less', 'app-js', 'copy-themes', 'copy-html', 'serve' ] );

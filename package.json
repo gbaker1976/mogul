@@ -13,6 +13,7 @@
   "author": "Garrett Baker",
   "license": "Proprietary",
   "devDependencies": {
+    "browser-sync": "^2.2.1",
     "couchbase": "~1.2.4",
     "gulp": "^3.8.11",
     "gulp-less": "^3.0.1",

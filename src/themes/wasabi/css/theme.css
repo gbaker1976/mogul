@@ -8,16 +8,11 @@
 	display: block;
 }
 
-[data-nav] {
-	background-color: #666;
-}
-
 [data-container] {
 
 }
 
 [data-nav] {
-	background-color:rgba(0,0,0,0.4);
 	box-shadow: 0 0 20px 10px rgba(0,0,0,0.1) inset;
 }
 
