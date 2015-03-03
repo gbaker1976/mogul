@@ -3,6 +3,13 @@
 	margin:0;
 	padding:0;
 	flex: 0 1 250px;
+	overflow:scroll;
+}
+
+[data-scroll] {
+	height:100%;
+	display:flex;
+	flex-flow:column nowrap;
 }
 
 [data-canvas]{}

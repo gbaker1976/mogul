@@ -475,9 +475,9 @@ th {
 
 	display:flex;
 	-webkit-box-flex: 1;
-	-webkit-flex: 1 0 auto;
-	    -ms-flex: 1 0 auto;
-	        flex: 1 0 auto;
+	-webkit-flex: 1 1 auto;
+	    -ms-flex: 1 1 auto;
+	        flex: 1 1 auto;
 	-webkit-flex-flow:row nowrap;
 	    -ms-flex-flow:row nowrap;
 	        flex-flow:row nowrap;
@@ -509,6 +509,18 @@ th {
 	-webkit-flex: 0 1 250px;
 	    -ms-flex: 0 1 250px;
 	        flex: 0 1 250px;
+	overflow:scroll;
+}
+
+[data-scroll] {
+	height:100%;
+	display:-webkit-box;
+	display:-webkit-flex;
+	display:-ms-flexbox;
+	display:flex;
+	-webkit-flex-flow:column nowrap;
+	    -ms-flex-flow:column nowrap;
+	        flex-flow:column nowrap;
 }
 
 [data-canvas]{}
@@ -521,8 +533,15 @@ th {
 	    -ms-flex-pack:end;
 
 	        justify-content:flex-end;
+	display:-webkit-box;
+	display:-webkit-flex;
+	display:-ms-flexbox;
+	display:flex;
+	-webkit-box-flex:1;
+	-webkit-flex:1 1 auto;
+	    -ms-flex:1 1 auto;
+	        flex:1 1 auto;
 
-	height:75px;
 	list-style:none;
 	margin:0;
 	padding:0
@@ -530,7 +549,11 @@ th {
 [data-nav] [data-item] {
   width:200px;
   height:100%;
-  line-height:75px
+  line-height:75px;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto
 }
 [data-nav] [data-item].toolbox {
   -webkit-box-flex: 0;

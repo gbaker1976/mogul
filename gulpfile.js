@@ -5,6 +5,7 @@ var cssnext = require( 'gulp-cssnext' );
 var path = require( 'path' );
 var fs = require( 'fs' );
 var wrench = require( 'wrench' );
+var aglio = require( 'gulp-aglio' );
 var browserSync = require( 'browser-sync' );
 var reload = browserSync.reload;
 
@@ -14,6 +15,12 @@ var copyFile = function( src, dest, cb ){
 		fs.writeFile( dest, data, cb );
 	});
 };
+
+gulp.task( 'gen-api-docs', function() {
+	gulp.src( './rest/doc/*.md' )
+	.pipe( aglio( { template: 'default' } ) )
+	.pipe( gulp.dest( './dist/rest' ) );
+});
 
 gulp.task( 'css', function(){
 	return gulp.src( './src/css/_all.css' )
@@ -106,5 +113,5 @@ gulp.watch( '*.html', { cwd: 'src' }, [ 'copy-html' ] );
 
 gulp.watch( [ 'js/**/*.js', 'css/**/*.css', '**/*.html' ], { cwd: 'dist' },  reload );
 
-gulp.task( 'default', [ 'clean-dist', 'css', 'app-js', 'theme', 'copy-html', 'serve' ] );
+gulp.task( 'default', [ 'clean-dist', 'gen-api-docs', 'css', 'app-js', 'theme', 'copy-html', 'serve' ] );
 gulp.task( 'theme', [ 'clean-themes', 'theme-css', 'theme-js', 'copy-theme-html', 'copy-themes' ] );

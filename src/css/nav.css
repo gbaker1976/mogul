@@ -1,8 +1,9 @@
 [data-nav] {
 
 	justify-content:flex-end;
+	display:flex;
+	flex:1 1 auto;
 
-	height:75px;
 	list-style:none;
 	margin:0;
 	padding:0;
@@ -13,6 +14,7 @@
 		width:200px;
 		height:100%;
 		line-height:75px;
+		flex: 1 0 auto;
 
 		&.toolbox {
 			flex: 0 1 200px;
