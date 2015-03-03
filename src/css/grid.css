@@ -1,8 +1,8 @@
 [data-container] {
 	height:100%;
-	width:100%;
 
 	display:flex;
+	flex: 0 0 auto;
 	flex-flow:column nowrap;
 }
 
@@ -15,14 +15,6 @@
 	&.detail{
 		flex:3 0 auto;
 	}
-}
-
-.gutter {
-	margin:2em;
-}
-
-.gutter ~ .gutter {
-	margin-left:0;
 }
 
 [data-row]{

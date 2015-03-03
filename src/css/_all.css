@@ -4,9 +4,10 @@
 
 @import "grid";
 @import "surface";
+@import "controls/controls";
 @import "nav";
 @import "svg";
 @import "charts";
 @import "interactions";
 
-@import "main.less";
+@import "main";

@@ -1,6 +1,7 @@
 var gulp = require( 'gulp' );
-var less = require( 'gulp-less' );
-var minifyCss = require( 'gulp-minify-css' );
+var postcss = require( 'gulp-postcss' );
+var postcssNested = require( 'postcss-nested' );
+var cssnext = require( 'gulp-cssnext' );
 var path = require( 'path' );
 var fs = require( 'fs' );
 var wrench = require( 'wrench' );
@@ -14,19 +15,14 @@ var copyFile = function( src, dest, cb ){
 	});
 };
 
-gulp.task(
-	'app-less',
-	function () {
-		return gulp.src( './src/less/**/_all.less' )
-		.pipe(
-			less({
-				paths: [ path.join( __dirname, 'less', 'lib') ]
-			})
-		)
-		.pipe( minifyCss() )
-		.pipe( gulp.dest( './dist/css' ) );
-	}
-);
+gulp.task( 'css', function(){
+	return gulp.src( './src/css/_all.css' )
+	.pipe( cssnext({
+		compress: true
+	}))
+	.pipe( postcss( [ postcssNested ] ) )
+	.pipe( gulp.dest( './dist/css' ) )
+});
 
 gulp.task( 'app-js', function(){
 	return gulp.src( './src/js/app.js' )
@@ -65,10 +61,10 @@ gulp.task( 'serve', function() {
 });
 
 gulp.watch( 'js/**/*.js', { cwd: 'src' },  [ 'app-js' ] );
-gulp.watch( 'less/**/*.less', { cwd: 'src' }, [ 'app-less' ] );
+gulp.watch( 'css/**/*.css', { cwd: 'src' }, [ 'css' ] );
 gulp.watch( 'themes/**/*', { cwd: 'src' }, [ 'copy-themes' ] );
 gulp.watch( '*.html', { cwd: 'src' }, [ 'copy-html' ] );
 
 gulp.watch( [ 'js/**/*.js', 'css/**/*.css', '**/*.html' ], { cwd: 'dist' },  reload );
 
-gulp.task( 'default', [ 'clean-dist', 'app-less', 'app-js', 'copy-themes', 'copy-html', 'serve' ] );
+gulp.task( 'default', [ 'clean-dist', 'css', 'app-js', 'copy-themes', 'copy-html', 'serve' ] );
