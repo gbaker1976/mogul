@@ -422,7 +422,7 @@ th {
 }
 
 [data-container] {
-	height:100%;
+	height:100vh;
 
 	display:-webkit-box;
 
@@ -431,10 +431,10 @@ th {
 	display:-ms-flexbox;
 
 	display:flex;
-	-webkit-box-flex: 0;
-	-webkit-flex: 0 0 auto;
-	    -ms-flex: 0 0 auto;
-	        flex: 0 0 auto;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	    -ms-flex: 1;
+	        flex: 1;
 	-webkit-flex-flow:column nowrap;
 	    -ms-flex-flow:column nowrap;
 	        flex-flow:column nowrap;
@@ -450,19 +450,12 @@ th {
 
 	display:flex;
 	-webkit-box-flex: 1;
-	-webkit-flex: 1 0 auto;
-	    -ms-flex: 1 0 auto;
-	        flex: 1 0 auto;
+	-webkit-flex: 1;
+	    -ms-flex: 1;
+	        flex: 1;
 	-webkit-flex-flow:column wrap;
 	    -ms-flex-flow:column wrap;
-	        flex-flow:column wrap
-}
-
-[data-column].detail{
-  -webkit-box-flex:3;
-  -webkit-flex:3 0 auto;
-  -ms-flex:3 0 auto;
-  flex:3 0 auto;
+	        flex-flow:column wrap;
 }
 
 [data-row]{
@@ -475,9 +468,9 @@ th {
 
 	display:flex;
 	-webkit-box-flex: 1;
-	-webkit-flex: 1 1 auto;
-	    -ms-flex: 1 1 auto;
-	        flex: 1 1 auto;
+	-webkit-flex: 1;
+	    -ms-flex: 1;
+	        flex: 1;
 	-webkit-flex-flow:row nowrap;
 	    -ms-flex-flow:row nowrap;
 	        flex-flow:row nowrap;
@@ -485,9 +478,9 @@ th {
 
 [data-cell] {
 	-webkit-box-flex: 1;
-	-webkit-flex: 1 0 0;
-	    -ms-flex: 1 0 0;
-	        flex: 1 0 0;
+	-webkit-flex: 1;
+	    -ms-flex: 1;
+	        flex: 1;
 }
 [data-surface][data-type="card"]{
   margin:5px;
@@ -495,74 +488,61 @@ th {
 }
 [data-surface][data-type="card"]:hover {}
 [data-surface][data-type="card"].large {
-  min-height:300px
-}
-[data-surface][data-type="card"].large .icon {
-  width:300px;
-  fill:red;
+  min-height:300px;
 }
 [data-control-list] {
 	list-style-type:none;
 	margin:0;
 	padding:0;
 	-webkit-box-flex: 0;
-	-webkit-flex: 0 1 250px;
-	    -ms-flex: 0 1 250px;
-	        flex: 0 1 250px;
-	overflow:scroll;
+	-webkit-flex: 0 0 250px;
+	    -ms-flex: 0 0 250px;
+	        flex: 0 0 250px;
+	overflow:auto;
+}
+
+[data-canvas]{
+	overflow:auto;
 }
 
 [data-scroll] {
-	height:100%;
-	display:-webkit-box;
-	display:-webkit-flex;
-	display:-ms-flexbox;
-	display:flex;
-	-webkit-flex-flow:column nowrap;
-	    -ms-flex-flow:column nowrap;
-	        flex-flow:column nowrap;
+	min-height:100%;
 }
-
-[data-canvas]{}
 [data-nav] {
 
-	-webkit-box-pack:end;
-
-	-webkit-justify-content:flex-end;
-
-	    -ms-flex-pack:end;
-
-	        justify-content:flex-end;
 	display:-webkit-box;
+
 	display:-webkit-flex;
+
 	display:-ms-flexbox;
+
 	display:flex;
-	-webkit-box-flex:1;
-	-webkit-flex:1 1 auto;
-	    -ms-flex:1 1 auto;
-	        flex:1 1 auto;
+	padding: 22px;
+	-webkit-box-flex:0;
+	-webkit-flex:0 0 100px;
+	    -ms-flex:0 0 100px;
+	        flex:0 0 100px;
+	-webkit-flex-flow:row wrap;
+	    -ms-flex-flow:row wrap;
+	        flex-flow:row wrap;
 
 	list-style:none;
 	margin:0;
 	padding:0
 }
 [data-nav] [data-item] {
-  width:200px;
-  height:100%;
-  line-height:75px;
-  -webkit-box-flex: 1;
-  -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 200px;
+  -ms-flex: 0 0 200px;
+  flex: 0 0 200px;
+  padding: 22px;
+  padding:1.4rem
 }
 [data-nav] [data-item].toolbox {
   -webkit-box-flex: 0;
-  -webkit-flex: 0 1 200px;
-  -ms-flex: 0 1 200px;
-  flex: 0 1 200px;
-  -webkit-align-self:flex-end;
-  -ms-flex-item-align:end;
-  align-self:flex-end;
+  -webkit-flex: 0 0 200px;
+  -ms-flex: 0 0 200px;
+  flex: 0 0 200px;
 }
 [data-interaction="flip"] {
 	-webkit-transform: rotateY(180deg);
@@ -571,56 +551,6 @@ th {
 	        transition: 0.6s;
 	-webkit-transform-style: preserve-3d;
 	        transform-style: preserve-3d;
-}
-
-html, body {
-	position:relative;
-	width:100%;
-	height:100%;
-	overflow:hidden;
-	margin:0;
-	padding:0;
-}
-
-body {
-	background-color:#f6f6f6;
-}
-
-
-
-[data-list] {
-	position:absolute;
-	top:75px;
-	left:0;
-	width:175px;
-	bottom:0;
-	background-color:#ddd;
-
-}
-
-[data-list] [data-item] {
-	width:100%;
-	height:75px;
-	margin:0 0 1px 0;
-	background-color:#ccc;
-	overflow:hidden;
-
-	box-shadow:2px 2px 0 rgba(255,255,255,.7) inset, 1px 1px 2px rgba(0,0,0,.5);
-
-	cursor:move;
-
-	-moz-user-select: none;
-	-khtml-user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
-	    user-select: none;
-}
-
-[data-list] [data-item] svg{
-	height:50%;
-	width:50%;
-	margin: 12% auto;
-	display:block;
 }
 
 [data-editor-container] {

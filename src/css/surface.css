@@ -10,11 +10,6 @@
 
 		&.large {
 			min-height:300px;
-
-			.icon {
-				width:300px;
-				fill:red;
-			}
 		}
 	}
 }

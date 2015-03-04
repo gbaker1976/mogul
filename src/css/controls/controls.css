@@ -2,14 +2,14 @@
 	list-style-type:none;
 	margin:0;
 	padding:0;
-	flex: 0 1 250px;
-	overflow:scroll;
+	flex: 0 0 250px;
+	overflow:auto;
+}
+
+[data-canvas]{
+	overflow:auto;
 }
 
 [data-scroll] {
-	height:100%;
-	display:flex;
-	flex-flow:column nowrap;
+	min-height:100%;
 }
-
-[data-canvas]{}

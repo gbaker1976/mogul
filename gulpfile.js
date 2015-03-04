@@ -71,6 +71,13 @@ gulp.task(
 );
 
 gulp.task(
+	'copy-theme-img',
+	function ( cb ) {
+		wrench.copyDirRecursive( './src/themes/wasabi/src/img', './src/themes/wasabi/dist/img', { forceDelete: true }, cb );
+	}
+);
+
+gulp.task(
 	'copy-themes',
 	function ( cb ) {
 		wrench.copyDirRecursive( './src/themes/wasabi/dist', './dist/theme/wasabi', { forceDelete: true }, cb );
@@ -114,4 +121,4 @@ gulp.watch( '*.html', { cwd: 'src' }, [ 'copy-html' ] );
 gulp.watch( [ 'js/**/*.js', 'css/**/*.css', '**/*.html' ], { cwd: 'dist' },  reload );
 
 gulp.task( 'default', [ 'clean-dist', 'gen-api-docs', 'css', 'app-js', 'theme', 'copy-html', 'serve' ] );
-gulp.task( 'theme', [ 'clean-themes', 'theme-css', 'theme-js', 'copy-theme-html', 'copy-themes' ] );
+gulp.task( 'theme', [ 'clean-themes', 'theme-css', 'theme-js', 'copy-theme-html', 'copy-theme-img', 'copy-themes' ] );
