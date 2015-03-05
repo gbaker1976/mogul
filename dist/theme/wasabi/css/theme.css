@@ -1,42 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Dosis:600,700);
 
-.element {
-	fill:rgba(0,0,0,0.5);
-}
-
-.icon {
-	width:50px;
-	margin:0 auto;
-	display: block;
-}
-
-#manage {
-	-webkit-box-flex: 0;
-	-webkit-flex: 0 1 500px;
-	    -ms-flex: 0 1 500px;
-	        flex: 0 1 500px;
-}
-
-[data-container] {}
-
-[data-nav] {
-	background:rgb(43, 143, 18);
-	box-shadow:0 0 80px 20px rgba(0,0,0,0.2) inset, 2px 2px 0px rgba(255,255,255,1) inset, 0 0 5px 0 rgba(0,0,0,0.2);
-}
-
-[data-nav] [data-item] {
-	margin:1em;
-	text-align:center;
-}
-
-[data-nav] [data-item]:hover {
-	background-color:rgb(38, 117, 18);
-}
-
-[data-nav] [data-item] a{
-	color:#fff;
-}
-
 [data-surface]{
 	background:#fff;
 	border:solid 1px rgba(0,0,0,0.3);
@@ -62,30 +25,23 @@
 	box-shadow: 1px 1px 10px 2px rgba(0,0,0,1) inset;
 	font-family: 'Dosis', sans-serif;
 	letter-spacing:3px;
+	font-size:16px;
+	font-size:1rem;
+	text-align:right;
 }
 
 [data-control-list][data-type="nav"] [data-surface] {
 	background-color:transparent;
 	border:none;
-
-	padding:22px;
-
-	padding:1.4rem;
-	font-size:24px;
-	font-size:1.5rem;
-	text-align:right;
-
 }
 
 [data-control-list][data-type="nav"] [data-surface][data-type="profile"]{
 	min-height:75px;
-
+	padding:22px;
+	padding:1.4rem;
 	-webkit-flex-flow: row;
-
 	    -ms-flex-flow: row;
-
 	        flex-flow: row;
-
 	border-bottom:solid 1px rgba(0,0,0,1);
 }
 
@@ -111,21 +67,33 @@
 	font-size:1rem;
 }
 
-[data-control-list][data-type="nav"] [data-surface][data-type="profile"] + [data-surface] {
+[data-control-list][data-type="nav"] [data-surface][data-type="profile"] + [data-surface]:not(.current) {
 	border-top:solid 1px rgba(255,255,255,0.1);
+}
+
+[data-control-list][data-type="nav"] [data-surface].current a {
+	background:rgb(55, 55, 55);
+	border-top:solid 1px rgba(255,255,255,0.2);
+	border-bottom:solid 1px rgba(0,0,0,1);
+	color:#fff;
 }
 
 [data-control-list][data-type="nav"] [data-surface] a {
 	color: rgba(255,255,255,0.3);
 	text-decoration:none;
 
-	-webkit-transition: color 0.5s;
+	-webkit-transition: color 0.5s, background-color 1s;
 
-	        transition: color 0.5s;
+	        transition: color 0.5s, background-color 1s;
+
+	display:block;
+	padding:22px;
+	padding:1.4rem;
 }
 
-[data-control-list][data-type="nav"] [data-surface] a:hover {
+[data-control-list][data-type="nav"] [data-surface]:not(.current) a:hover {
 	color: rgba(255,255,255,1);
+	background:rgb(45, 45, 45);
 }
 
 [data-control-list] [data-surface][data-type="card"] {

@@ -2,6 +2,7 @@
 @import "_variables";
 @import "_mixins";
 
+@import "table";
 @import "grid";
 @import "surface";
 @import "controls/controls";

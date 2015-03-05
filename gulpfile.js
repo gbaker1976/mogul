@@ -17,7 +17,7 @@ var copyFile = function( src, dest, cb ){
 };
 
 gulp.task( 'gen-api-docs', function() {
-	gulp.src( './rest/doc/*.md' )
+	return gulp.src( './rest/doc/*.md' )
 	.pipe( aglio( { template: 'default' } ) )
 	.pipe( gulp.dest( './dist/rest' ) );
 });

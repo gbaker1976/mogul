@@ -337,7 +337,7 @@ A single Job object with all its details
 + Parameters
 	+ jobId (required, number, `1`) ... Numeric `id` of the Job to perform action with. Has example value.
 
-### Retrieve an PublishDefinition [GET]
+### Retrieve an Job [GET]
 + Response 200 (application/json)
 
 	+ Body
@@ -359,5 +359,47 @@ A single Job object with all its details
 			]
 			}
 
-### Remove a PublishDefinition [DELETE]
+### Remove a Job [DELETE]
++ Response 204
+
+# Group Insights
+Insights related resources of the **Mogul API**
+
+Insights are Mogul analytics. The name analytics is just clunky.
+
+## Insights Collection [/insights]
+### List all Jobs [GET]
++ Response 200 (application/json)
+
+		[{
+			"id": 1
+		}]
+
+### Create an Insight [POST]
++ Request (application/json)
+
+		{}
+
++ Response 201 (application/json)
+
+		{
+		"id": 1
+		}
+
+## Insight [/insights/{insightId}]
+A single Insight object with all its details
+
++ Parameters
+	+ insightId (required, number, `1`) ... Numeric `id` of the Insight to perform action with. Has example value.
+
+### Retrieve an Insight [GET]
++ Response 200 (application/json)
+
+	+ Body
+
+			{
+			"id": 1
+			}
+
+### Remove an Insight [DELETE]
 + Response 204

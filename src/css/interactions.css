@@ -1,5 +1,20 @@
+[data-interaction="scroll"] {
+	overflow:auto;
+}
+[data-interaction="scroll"] [data-scroll] {
+	min-height:100%;
+}
+
 [data-interaction="flip"] {
 	transform: rotateY(180deg);
 	transition: 0.6s;
 	transform-style: preserve-3d;
+}
+
+[data-interaction="slide-vert"] {
+
+}
+
+[data-interaction="slide-horiz"] {
+	
 }
