@@ -1,0 +1,17 @@
+[data-chart] {
+	min-height:200px;
+	padding:2rem;
+	margin:2rem;
+	text-align:center;
+}
+
+[data-chart] path {
+	fill: #ccc;
+	transition: fill 250ms linear;
+	transition-delay: 150ms;
+}
+
+[data-chart] path:hover {
+	fill: #999;
+	transition-delay: 0;
+}

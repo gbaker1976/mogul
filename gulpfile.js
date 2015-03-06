@@ -103,6 +103,8 @@ gulp.task(
 	function ( cb ) {
 		copyFile( './src/index.html', './dist/index.html' );
 		copyFile( './src/sites.html', './dist/sites.html', cb );
+		copyFile( './src/site.html', './dist/site.html', cb );
+		copyFile( './src/page.html', './dist/page.html', cb );
 	}
 );
 

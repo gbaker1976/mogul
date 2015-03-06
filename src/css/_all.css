@@ -4,13 +4,10 @@
 
 @import "table";
 @import "grid";
-@import "surface";
+@import "surfaces/_all";
 @import "controls/controls";
 @import "nav";
 @import "svg";
-@import "charts";
 @import "interactions";
-
 @import "typography";
-
 @import "main";
