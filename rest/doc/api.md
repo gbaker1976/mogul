@@ -11,17 +11,19 @@ Account related resources of the **Mogul API**
 ### List all Accounts [GET]
 + Response 200 (application/json)
 
-		[{
-		"id": 1,
-		"username": "elephantking24",
-		"firstName": "George",
-		"lastName": "Fapgar"
-		}, {
-		"id": 2,
-		"username": "purplejack04",
-		"firstName": "Lorena",
-		"lastName": "Blobbit"
-		}]
+		{
+			"entities": [{
+				"id": 1,
+				"username": "elephantking24",
+				"firstName": "George",
+				"lastName": "Fapgar"
+				}, {
+				"id": 2,
+				"username": "purplejack04",
+				"firstName": "Lorena",
+				"lastName": "Blobbit"
+			}]
+		}
 
 ### Create an Account [POST]
 + Request (application/json)
@@ -70,29 +72,29 @@ Connectors related resources of the **Mogul API**
 + Response 200 (application/json)
 
 		[{
-		"id": 1,
-		"name": "Etsy Shop",
-		"type": 1
+			"id": 1,
+			"name": "Etsy Shop",
+			"type": 1
 		}, {
-		"id": 2,
-		"name": "Facebook",
-		"type": 2
+			"id": 2,
+			"name": "Facebook",
+			"type": 2
 		}]
 
 ### Create an Connector [POST]
 + Request (application/json)
 
 		{
-		"name": "Etsy Shop",
-		"type": 1
+			"name": "Etsy Shop",
+			"type": 1
 		}
 
 + Response 201 (application/json)
 
 		{
-		"id": 1,
-		"name": "Etsy Shop",
-		"type": 1
+			"id": 1,
+			"name": "Etsy Shop",
+			"type": 1
 		}
 
 ## Connector [/connectors/{connectorId}]
@@ -107,9 +109,9 @@ A single Connector object with all its details
 	+ Body
 
 			{
-			"id": 1,
-			"name": "Etsy Shop",
-			"type": 1
+				"id": 1,
+				"name": "Etsy Shop",
+				"type": 1
 			}
 
 ### Remove a Domain [DELETE]
@@ -123,9 +125,9 @@ Domains related resources of the **Mogul API**
 + Response 200 (application/json)
 
 		[{
-		"id": 1, "name": "www.foo.com"
+			"id": 1, "name": "www.foo.com"
 		}, {
-		"id": 2, "name": "www.bar.com"
+			"id": 2, "name": "www.bar.com"
 		}]
 
 ### Create an Domain [POST]
@@ -147,7 +149,6 @@ A single Domain object with all its details
 
 ### Retrieve a Domain [GET]
 + Response 200 (application/json)
-
 	+ Body
 
 			{ "id": 2, "name": "www.foo.com" }
@@ -163,14 +164,14 @@ Sites related resources of the **Mogul API**
 + Response 200 (application/json)
 
 		[{
-		"id": 1,
-		"domains": [ 1, 2, 3 ],
-		"title": "My Awesome Site"
-		}, {
-		"id": 2,
-		"domains": [ 1, 2, 3 ],
-		"title": "Shopping Emporium"
-		}]
+			"id": 1,
+			"domains": [ 1, 2, 3 ],
+			"title": "My Awesome Site"
+			}, {
+			"id": 2,
+			"domains": [ 1, 2, 3 ],
+			"title": "Shopping Emporium"
+			}]
 
 ### Create a Site [POST]
 + Request (application/json)
@@ -184,10 +185,10 @@ Sites related resources of the **Mogul API**
 + Response 201 (application/json)
 
 		{
-			"id": 3,
-			"name": "My Awesome Site",
-			"domains": [1, 2, 3],
-			"description": "This site is the epitome of awesomeness."
+		"id": 3,
+		"name": "My Awesome Site",
+		"domains": [1, 2, 3],
+		"description": "This site is the epitome of awesomeness."
 		}
 
 ## Site [/sites/{siteId}]
@@ -198,14 +199,13 @@ A single Site object with all its details
 
 ### Retrieve a Site [GET]
 + Response 200 (application/json)
-
 	+ Body
 
 			{
-				"id": 1,
-				"name": "My Awesome Site"
-				"domains": [1, 2, 3],
-				"description": "This is the epitome of awesomeness."
+			"id": 1,
+			"name": "My Awesome Site"
+			"domains": [1, 2, 3],
+			"description": "This is the epitome of awesomeness."
 			}
 
 ### Remove a Site [DELETE]
@@ -228,7 +228,7 @@ A single Site object with all its details
 + Request (application/json)
 
 		{
-			"title": "Shoes Kaboose"
+		"title": "Shoes Kaboose"
 		}
 
 + Response 201 (application/json)
@@ -244,7 +244,6 @@ A single page object with all its details
 
 ### Retrieve a Page [GET]
 + Response 200 (application/json)
-
 	+ Body
 
 			{ "id": 2, "title": "Shoes Kaboose" }
@@ -261,14 +260,15 @@ All jobs are async.
 ## Jobs Collection [/jobs]
 ### List all Jobs [GET]
 + Response 200 (application/json)
+	+ Body
 
-		[{
-		"id": 1,
-		"itemId": 1,
-		"itemTypeId": 1,
-		"actionId": 1,
-		"statusId": 1,
-		"entities":[
+			[{
+			"id": 1,
+			"itemId": 1,
+			"itemTypeId": 1,
+			"actionId": 1,
+			"statusId": 1,
+			"entities":[
 			{
 			"id": 2,
 			"itemId": 2,
@@ -276,14 +276,14 @@ All jobs are async.
 			"actionId": 2,
 			"eventDate": "2015-02-28T20:16:12+00:00"
 			}
-		]
-		}, {
-		"id": 4,
-		"itemId": 1,
-		"itemTypeId": 1,
-		"actionId": 1,
-		"statusId": 1,
-		"entities":[
+			]
+			}, {
+			"id": 4,
+			"itemId": 1,
+			"itemTypeId": 1,
+			"actionId": 1,
+			"statusId": 1,
+			"entities":[
 			{
 			"id": 5,
 			"itemId": 5,
@@ -291,18 +291,17 @@ All jobs are async.
 			"actionId": 2,
 			"eventDate": "2015-02-28T20:16:12+00:00"
 			}
-		]
-		}]
+			]
+			}]
 
 ### Create an Job [POST]
 + Request (application/json)
 
-		{
+			{
 		"itemId": 1,
 		"itemTypeId": 1,
 		"actionId": 1,
-		"entities":[
-			{
+		"entities":[{
 			"id": 2,
 			"itemId": 2,
 			"itemTypeId": 2,
@@ -321,13 +320,13 @@ All jobs are async.
 		"actionId": 1,
 		"statusId": 1,
 		"entities":[
-			{
-			"id": 2,
-			"itemId": 2,
-			"itemTypeId": 2,
-			"actionId": 2,
-			"eventDate": "2015-02-28T20:16:12+00:00"
-			}
+		{
+		"id": 2,
+		"itemId": 2,
+		"itemTypeId": 2,
+		"actionId": 2,
+		"eventDate": "2015-02-28T20:16:12+00:00"
+		}
 		]
 		}
 
@@ -349,13 +348,13 @@ A single Job object with all its details
 			"actionId": 1,
 			"statusId": 1,
 			"entities":[
-				{
-				"id": 2,
-				"itemId": 2,
-				"itemTypeId": 2,
-				"actionId": 2,
-				"eventDate": "2015-02-28T20:16:12+00:00"
-				}
+			{
+			"id": 2,
+			"itemId": 2,
+			"itemTypeId": 2,
+			"actionId": 2,
+			"eventDate": "2015-02-28T20:16:12+00:00"
+			}
 			]
 			}
 
@@ -383,7 +382,7 @@ Insights are Mogul analytics. The name analytics is just clunky.
 + Response 201 (application/json)
 
 		{
-		"id": 1
+			"id": 1
 		}
 
 ## Insight [/insights/{insightId}]
@@ -394,11 +393,10 @@ A single Insight object with all its details
 
 ### Retrieve an Insight [GET]
 + Response 200 (application/json)
-
 	+ Body
 
 			{
-			"id": 1
+				"id": 1
 			}
 
 ### Remove an Insight [DELETE]
