@@ -9,3 +9,7 @@
 7. SVG - http://www.w3.org/TR/SVG/
 8. API Blueprint - http://apiblueprint.org/
 9. Aglio - https://github.com/danielgtaylor/aglio
+10. API Mock - https://github.com/localmed/api-mock
+11. D3 - http://d3js.org/
+12. KSS - https://github.com/kneath/kss
+13. KSS-Node - https://github.com/kss-node/kss-node
