@@ -493,7 +493,6 @@ table.card tbody {
 table.card tr {
 	border:none;
 	box-shadow:1px 1px 3px rgba(0,0,0,0.3);
-	border-radius:10px;
 	display:block;
 	-webkit-box-flex:0;
 	-webkit-flex:0 0 200px;
@@ -545,17 +544,16 @@ table.card td.thumbnail:hover img {
 }
 
 table.card td:not(.thumbnail) {
-	z-index:3;
-	color:#fff;
+
 }
 
 table.card td:nth-child(2) {
 	position:absolute;
-	top:20px;
+	top:0;
 	left:0;
 	width:100%;
 	padding:1em;
-	background:rgba(0,0,0,0.8);
+	background:rgba(255,255,255,1);
 }
 [data-container] {
 	height:100vh;
@@ -732,15 +730,15 @@ table.card td:nth-child(2) {
 	
 }
 [data-editor-container] {
-	position:absolute;
-	right:25px;
-	top:75px;
-	left:175px;
-	bottom:0;
+	-webkit-box-flex: 0;
+	-webkit-flex: 0 0 auto;
+	    -ms-flex: 0 0 auto;
+	        flex: 0 0 auto;
+	height:800px;
 	border:solid 1px rgba(0,0,0,0.2);
 }
 
 [data-editor] {
 	width:100%;
-	height:100%;
+	height:800px;
 }

@@ -16,6 +16,12 @@
 	--borderStyle: solid 1px rgba(0,0,0,0.3);
 }
 
+[data-control-list][data-type="nav"],
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Dosis', sans-serif;
+	letter-spacing:3px;
+}
+
 [data-surface]{
 	background:#fff;
 }
@@ -38,8 +44,6 @@
 [data-control-list][data-type="nav"] {
 	background-color:var(--darkColor);
 	box-shadow: 1px 1px 10px 2px rgba(0,0,0,1) inset;
-	font-family: 'Dosis', sans-serif;
-	letter-spacing:3px;
 	font-size:1rem;
 	text-align:right;
 }

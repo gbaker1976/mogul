@@ -115,18 +115,21 @@
                         svg = d3.select( chart )
                             .attr( "width", width )
                             .attr( "height", height )
-                            .append("g")
-                            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+                            .append( "g" )
+                            .attr( "transform", "translate(" + width / 2 + "," + height / 2 + ")" );
 
-                        svg.selectAll("path")
-                            .data(pie(data))
-                            .enter().append("path")
-                            .each(function(d) { d.outerRadius = outerRadius - radiusOffset; })
-                            .attr("d", arc)
-                            .on("mouseover", arcTween(outerRadius, 0))
-                            .on("mouseout", arcTween(outerRadius - radiusOffset, 150));
+                        svg.selectAll( "path" )
+                            .data( pie( data ) )
+                            .enter()
+                            .append( "path" )
+                            .each( function( d ) {
+                                d.outerRadius = outerRadius - radiusOffset;
+                            })
+                            .attr( "d", arc )
+                            .on( "mouseover", arcTween( outerRadius, 0 ) )
+                            .on( "mouseout", arcTween( outerRadius - radiusOffset, 150 ) );
 
-                            svg.append( 'g' )
+                        svg.append( 'g' )
                             .append( 'circle' )
                             .attr( 'r', 0 )
                             .attr( 'filter', 'url(#pieChartDropShadow)' )
