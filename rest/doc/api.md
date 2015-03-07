@@ -401,3 +401,42 @@ A single Insight object with all its details
 
 ### Remove an Insight [DELETE]
 + Response 204
+
+# Group Applications
+Applications related resources of the **Mogul API**
+
+## Applications Collection [/applications]
+### List all Applications [GET]
++ Response 200 (application/json)
+
+        [{
+            "id": 1
+        }]
+
+### Create an Application [POST]
++ Request (application/json)
+
+        {}
+
++ Response 201 (application/json)
+
+        {
+            "id": 1
+        }
+
+## Application [/applications/{applicationId}]
+A single Application object with all its details
+
++ Parameters
+    + applicationId (required, number, `1`) ... Numeric `id` of the Application to perform action with. Has example value.
+
+### Retrieve an Application [GET]
++ Response 200 (application/json)
+    + Body
+
+            {
+                "id": 1
+            }
+
+### Remove an Application [DELETE]
++ Response 204
