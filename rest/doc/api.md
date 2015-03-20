@@ -1,8 +1,8 @@
 FORMAT: 1A
-HOST: http://api.mogulapp.com
+HOST: http://api.app.com
 
 # mogul
-Mogul API.
+Mogul API (Zartan).
 
 # Group Accounts
 Account related resources of the **Mogul API**
@@ -62,6 +62,69 @@ A single Account object with all its details
             }
 
 ### Remove an Account [DELETE]
++ Response 204
+
+## Account Connectors Collection [/accounts/{accountId}/connectors]
+A collection of provisioned connectors within an account.
+
++ Parameters
+    + accountId (required, number, `1`) ... Numeric `id` of the Account to perform action with. Has example value.
+
+### List all Account Connectors [GET]
++ Response 200 (application/json)
+
+        {
+            "entities": [{
+                "id": 1,
+                "username": "elephantking24",
+                "firstName": "George",
+                "lastName": "Fapgar"
+                }, {
+                "id": 2,
+                "username": "purplejack04",
+                "firstName": "Lorena",
+                "lastName": "Blobbit"
+            }]
+        }
+
+### Create an Account Connector [POST]
++ Request (application/json)
+
+        {
+            "username": "elephantking24",
+            "firstName": "George",
+            "lastName": "Fapgar"
+        }
+
++ Response 201 (application/json)
+
+        {
+            "id": 3,
+            "username": "elephantking24",
+            "firstName": "George",
+            "lastName": "Fapgar"
+        }
+
+## Account Connector [/accounts/{accountId}/connectors/{connectorId}]
+A single Account object with all its details
+
++ Parameters
+    + accountId (required, number, `1`) ... Numeric `id` of the Account to perform action with. Has example value.
+    + connectorId (required, number, `1`) ... Numeric `id` of the Account Connector to perform action with. Has example value.
+
+### Retrieve an Account Connector [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "id": 2,
+                "username": "elephantking24",
+                "firstName": "George",
+                "lastName": "Fapgar"
+            }
+
+### Remove an Account Connector [DELETE]
 + Response 204
 
 # Group Connectors
