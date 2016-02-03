@@ -7,6 +7,7 @@ var resourceHandler = require( './lib/resource-handler' );
 var hbs = require( 'hbs' );
 var app = express();
 var fs = require( 'fs' );
+var path = require( 'path' );
 
 app.set( 'views', __dirname + '/sites' );
 app.engine( 'html', hbs.__express );
@@ -14,7 +15,7 @@ app.set( 'view engine', 'html' );
 
 // serve application UI
 app.use( '/', function( req, res, next ){
-	fs.realpath( '.' + req.path, function( err, path ){
+	fs.realpath( path.join( process.cwd(), req.path ), function( err, path ){
 		if ( err ) {
 			console.log( req.path );
 			res.send( 'Not found', 400 );
