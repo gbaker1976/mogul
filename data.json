@@ -1,7 +1,7 @@
 {
 	"sites": [
         {
-            "aliases": [ "localhost" ],
+            "aliases": [ "localhost", "guarded-sierra-5185.herokuapp.com" ],
     		"active": true,
     		"id": "sweet_october",
     		"pages": [
