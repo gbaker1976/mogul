@@ -1,19 +1,35 @@
 {
-	"sweetoctober.com": {
-		"id": "sweet_october",
-		"pages": {
-			"/" : {
-				"type": "page",
-				"template": "index.html",
-				"data": {
-					"title": "Sweet October: Intoxicating Scents for Lovers of the Dark",
-					"content": "<header><h2>Intoxicating Scents for Lovers of the Dark</h2></header>",
-					"quote": {
-						"author": "Mark Twain",
-						"content": "Everyone is a moon and has a dark side which he never shows to anybody."
-					}
-				}
-			}
-		}
-	}
+	"sites": [
+        {
+            "aliases": [ "localhost" ],
+    		"active": true,
+    		"id": "sweet_october",
+    		"pages": [
+    			{
+                    "pageId": 1,
+    				"type": "page",
+                    "active": true,
+    				"content-type": "text/html",
+    				"template": "index.html",
+    				"data": {
+    					"title": "Sweet October: Intoxicating Scents for Lovers of the Dark",
+    					"content": "<header><h2>Intoxicating Scents for Lovers of the Dark</h2></header>",
+    					"quote": {
+    						"author": "Mark Twain",
+    						"content": "Everyone is a moon and has a dark side which he never shows to anybody."
+    					}
+    				},
+                    "aliases": [ "/index.html", "/" ]
+    			},
+    			{
+                    "pageId": 2,
+    				"type": "page",
+                    "active": true,
+    				"content-type": "application/javascript",
+    				"content": "\nalert(\"Hello\");\n",
+                    "aliases": [ "/js/main.js" ]
+    			}
+    		]
+    	}
+    ]
 }
