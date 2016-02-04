@@ -7,7 +7,12 @@ var resourceHandler = require( './lib/resource-handler' );
 var hbs = require( 'hbs' );
 var app = express();
 var fs = require( 'fs' );
+var cwd = process.cwd();
 var path = require( 'path' );
+var paths = {
+    NotFound: path.join( cwd, '/sites/404.html' ),
+    Error: path.join( cwd, '/sites/500.html' )
+};
 
 app.set( 'views', __dirname + '/sites' );
 app.engine( 'html', hbs.__express );
@@ -15,15 +20,19 @@ app.set( 'view engine', 'html' );
 
 // serve application UI
 app.use( '/', function( req, res, next ){
-	fs.realpath( path.join( process.cwd(), req.path ), function( err, path ){
+	fs.realpath( path.join( cwd, req.path ), function( err, path ){
 		if ( err ) {
-			console.log( req.path );
-			res.send( 'Not found', 400 );
-			return false;
+			res.status( 404 ).sendFile( paths.NotFound );
+            return;
 		}
-		res.sendfile( path );
+
+		res.sendFile( path, function( err ){
+            if ( err ) {
+                res.status( 404 ).sendFile( paths.NotFound );
+                return;
+            }
+        });
 	});
-	return false;
 });
 
 var port = Number( process.env.PORT || 5000 );

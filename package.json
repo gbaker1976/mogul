@@ -28,10 +28,10 @@
     "wrench": "^1.5.8"
   },
   "dependencies": {
-    "express": "~4.3.1",
-    "logfmt": "~1.1.2",
+    "express": "^4.13.4",
     "hbs": "~2.6.0",
-    "pkgcloud": "~0.9.5",
-    "mongodb": "~1.4.5"
+    "logfmt": "~1.1.2",
+    "mongodb": "~1.4.5",
+    "pkgcloud": "~0.9.5"
   }
 }
