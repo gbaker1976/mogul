@@ -5,6 +5,7 @@ var pageHandler = require( './lib/page-handler' );
 var hbs = require( 'hbs' );
 var app = express();
 var fs = require( 'fs' );
+var path = require( 'path' );
 var memjs = require( 'memjs' );
 
 app.set( 'views', process.cwd() + '/' );
