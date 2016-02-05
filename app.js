@@ -12,20 +12,20 @@ app.set( 'views', process.cwd() + '/' );
 app.engine( 'html', hbs.__express );
 app.set( 'view engine', 'html' );
 
-cache.get( 'test-data', function( err, value, key ){
-    if ( !value ) {
-        fs.readFile( path.join( process.cwd(), 'data.json' ), 'utf-8', function( err, contents ){
-            if ( err ) {
-                console.log( 'unable to read test data file' );
-                return;
-            }
-
-            if ( contents ) {
-                cache.set( 'test-data', contents );
-            }
-        });
-    }
-});
+// cache.get( 'test-data', function( err, value, key ){
+//     if ( !value ) {
+//         fs.readFile( path.join( process.cwd(), 'data.json' ), 'utf-8', function( err, contents ){
+//             if ( err ) {
+//                 console.log( 'unable to read test data file' );
+//                 return;
+//             }
+//
+//             if ( contents ) {
+//                 cache.set( 'test-data', contents );
+//             }
+//         });
+//     }
+// });
 
 app.use( contextHandler );
 app.use( pageHandler );
