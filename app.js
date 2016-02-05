@@ -1,23 +1,18 @@
 var express = require( 'express' );
 //var logfmt = require( 'logfmt' );
-var contextHandler = require( './lib/context-handler' );
-var pageHandler = require( './lib/page-handler' );
+var contextHandler = require( 'context-handler' );
+var pageHandler = require( 'page-handler' );
 var hbs = require( 'hbs' );
 var app = express();
 var fs = require( 'fs' );
 var path = require( 'path' );
-var memjs = require( 'memjs' );
+var cache = require( 'cache' );
 
 app.set( 'views', process.cwd() + '/' );
 app.engine( 'html', hbs.__express );
 app.set( 'view engine', 'html' );
 
-var client = memjs.Client.create( process.env.MEMCACHEDCLOUD_SERVERS, {
-    username: process.env.MEMCACHEDCLOUD_USERNAME,
-    password: process.env.MEMCACHEDCLOUD_PASSWORD
-});
-
-client.get( 'test-data', function( err, value, key ){
+cache.get( 'test-data', function( err, value, key ){
     if ( !value ) {
         fs.readFile( path.join( process.cwd(), 'data.json' ), 'utf-8', function( err, contents ){
             if ( err ) {
@@ -26,7 +21,7 @@ client.get( 'test-data', function( err, value, key ){
             }
 
             if ( contents ) {
-                client.set( 'test-data', contents );
+                cache.set( 'test-data', contents );
             }
         });
     }
