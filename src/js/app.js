@@ -1,7 +1,5 @@
-(function( doc, win ){
-
-	'use strict';
-
-	
-
-})( document, window );
+export class App {
+    constructor( config ){
+        this.config = config || {};
+    }
+};

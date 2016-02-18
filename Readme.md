@@ -1,23 +1,12 @@
-# Stuff that's used here...
+# Mogul
 
-## Server
-1. Node - https://nodejs.org/
-2. Express - http://expressjs.com/
-3. Restify - http://mcavage.me/node-restify/
-4. StatsD - https://github.com/gbaker1976/statsd
+A design team's web studio. Mogul doesn't just allow super easy design of full-featured web pages, it enables an entire team:
 
-## Build Process
-1. Gulp - http://gulpjs.com/
-2. Wrench - https://github.com/ryanmcgrath/wrench-js
-3. PostCSS - https://github.com/postcss/postcss
-4. API Blueprint - http://apiblueprint.org/
-5. Aglio - https://github.com/danielgtaylor/aglio
-6. API Mock - https://github.com/localmed/api-mock
-7. KSS - https://github.com/kneath/kss
-8. KSS-Node - https://github.com/kss-node/kss-node
-
-## UI
-1. Octane UI - https://github.com/gbaker1976/octane
-2. Savage - https://github.com/gbaker1976/savage
-3. Spigot - https://github.com/gbaker1976/spigot
-4. D3 - http://d3js.org/
+* Complete workflow that your team designs.
+* Start at any point in the workflow.
+* Prototype phase, design phase, develop phase, deploy phase, they're all available.
+* Easy code export makes deploying to existing infrastructure a breeze.
+* Built-in tools for Less, Sass, Grunt, Gulp allow you to build code as you would on the command line.
+* Symbol and pattern libraries make prototyping and visual design a snap.
+* Design lo-fi and hi-fi versions of components so that the components you use for prototypes are also the final, fully-functional UI components used on your published site.
+* All CSS, HTML and JavaScript based design tools means you can sutomize almost everything.
