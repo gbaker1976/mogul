@@ -1,5 +1,5 @@
-define(['exports'], function (exports) {
-    'use strict';
+define(["exports"], function (exports) {
+    "use strict";
 
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -29,24 +29,50 @@ define(['exports'], function (exports) {
         };
     }();
 
-    var View = exports.View = function () {
-        function View(config) {
+    function _possibleConstructorReturn(self, call) {
+        if (!self) {
+            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+        }
+
+        return call && (typeof call === "object" || typeof call === "function") ? call : self;
+    }
+
+    function _inherits(subClass, superClass) {
+        if (typeof superClass !== "function" && superClass !== null) {
+            throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+        }
+
+        subClass.prototype = Object.create(superClass && superClass.prototype, {
+            constructor: {
+                value: subClass,
+                enumerable: false,
+                writable: true,
+                configurable: true
+            }
+        });
+        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+    }
+
+    var View = exports.View = function (_HTMLElement) {
+        _inherits(View, _HTMLElement);
+
+        function View() {
             _classCallCheck(this, View);
 
-            this.config = config || {};
+            return _possibleConstructorReturn(this, Object.getPrototypeOf(View).call(this));
         }
 
         _createClass(View, [{
-            key: 'render',
-            value: function render() {
-                if (this.config.node) {
-                    this.config.node.appendChild(document.createElement('div')).innerHTML = this.config.template || '';
-                }
+            key: "attachedCallback",
+            value: function attachedCallback() {
+                this.innerHTML = "<h1>Hello, World!</h1>";
             }
         }]);
 
         return View;
-    }();
+    }(HTMLElement);
 
     ;
+
+    document.registerElement('mogul-view', View);
 });

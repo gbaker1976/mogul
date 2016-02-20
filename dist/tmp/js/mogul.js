@@ -1,4 +1,4 @@
-define(["exports", "app", "view"], function (exports, _app, _view) {
+define(["exports", "view", "ui/views/overview-main"], function (exports, _view, _overviewMain) {
     "use strict";
 
     Object.defineProperty(exports, "__esModule", {

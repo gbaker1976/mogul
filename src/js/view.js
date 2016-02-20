@@ -1,11 +1,11 @@
-export class View {
-	constructor( config ){
-		this.config = config || {};
+export class View extends HTMLElement {
+	constructor(){
+        super();
 	}
 
-    render(){
-        if ( this.config.node ) {
-            this.config.node.appendChild( document.createElement( 'div' ) ).innerHTML = this.config.template || '';
-        }
+    attachedCallback(){
+        this.innerHTML = "<h1>Hello, World!</h1>";
     }
 };
+
+document.registerElement( 'mogul-view', View );

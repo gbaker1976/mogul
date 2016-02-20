@@ -76,7 +76,8 @@ gulp.task( 'start-server', function(){
 gulp.task( 'workbench', [ 'default', 'start-server' ], function() {
 	browserSync({
 		proxy: 'http://localhost:5000',
-        port: 3000
+        port: 3000,
+        browser: 'google chrome'
 	});
 
     // gulp.watch( 'js/**/*.js', { cwd: 'src' },  [ 'build-js' ] );

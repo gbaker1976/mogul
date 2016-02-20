@@ -1,5 +1,5 @@
-import { App } from "app";
 import { View } from "view";
+import { OverViewMainView } from "ui/views/overview-main";
 
 export class Mogul {
 
