@@ -21,6 +21,7 @@
   ],
   "dependencies": {
     "bootstrap": "https://github.com/twbs/bootstrap.git#v4-dev",
-    "requirejs": "~2.1.22"
+    "requirejs": "~2.1.22",
+    "jquery": "~2.2.1"
   }
 }
