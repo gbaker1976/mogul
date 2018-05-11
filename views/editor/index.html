@@ -4,89 +4,25 @@
 <head>
 	<title>Rich Text Editor</title>
 	<script type="text/javascript">
-		let oDoc, oDocElm, sDefTxt;
-
-		const themes = [
-			{
-				name: 'Basic',
-				rules: {
-					'body': {
-						'color': '#666',
-						'font-family': 'Geneva',
-						'font-size': '1.5rem'
-					},
-					'.hero': {
-						'width': '100%',
-						'height': '500px',
-						'background-color': '#000',
-						'color': '#fff'
-					}
-				}
-
-			},
-			{
-				name: 'Goofy',
-				rules: {
-					'body': {
-						'color': 'blue',
-						'font-family': 'Impact',
-						'font-size': '3rem'
-					},
-					'.hero': {
-						'width': '100%',
-						'height': '300px',
-						'background-color': 'red',
-						'color': '#fff'
-					}
-				}
-
-			}
-		];
+		var oDoc, oDocElm, sDefTxt;
 
 		const initDoc = () => {
 			oDoc = document.getElementById("textBox").contentWindow.document;
 			oDocElm = oDoc.body;
-			oDocElm.innerHTML = '<html><head><style></style></head><body><p>Hello.</p></body></html>';
+			oDocElm.innerHTML = '<p>Hello.</p>';
 			oDocElm.contentEditable = true;
 			sDefTxt = oDocElm.innerHTML;
 			oDoc.execCommand("defaultParagraphSeparator", false, "p");
 			initSelectionHandler(oDoc);
-		}
-
-		const buildRule = (sel, rules) => {
-			let outRule = sel + ' {';
-
-			for(let r in rules) {
-				outRule += r + ':' + rules[r] + ";";
-			}
-
-			return outRule += '}';
-		}
-
-		const clearTheme = (sheet) => {
-			let i = sheet.cssRules.length-1;
-
-			while( i >= 0 ) {
-				sheet.deleteRule(i);
-				i--;
-			}
-		}
-
-		const changeDocTheme = (idx) => {
-			const sheet = oDoc.styleSheets[0];
-			const theme = themes[idx];
-
-			clearTheme(sheet);
-
-			for ( let rule in theme.rules ) {
-				sheet.insertRule( buildRule( rule, theme.rules[rule] ));
-			}
+			// if (document.compForm.switchMode.checked) {
+			// 	setDocMode(true);
+			// }
 		}
 
 		const initSelectionHandler = (doc) => {
-			// doc.addEventListener( 'mouseup', (e) => {
-			// 	debugger;
-			// });
+			doc.addEventListener( 'mouseup', (e) => {
+				debugger;
+			});
 		}
 
 		const formatDoc = (sCmd, sValue) => {
@@ -97,7 +33,12 @@
 		}
 
 		const validateMode = () => {
-			return true;
+			if (!document.compForm.switchMode.checked) {
+				return true;
+			}
+			alert("Uncheck \"Show HTML\".");
+			oDocElm.focus();
+			return false;
 		}
 
 		const setDocMode = (bToSource) => {
@@ -172,23 +113,17 @@
 	<form name="compForm" method="post" action="sample.php" onsubmit="if(validateMode()){this.myDoc.value=oDoc.innerHTML;return true;}return false;">
 		<input type="hidden" name="myDoc">
 		<div id="toolBar1">
-			<select onchange="changeDocTheme(this.selectedIndex-1);this.selectedIndex=0;">
-				<option selected>- theme -</option>
-				<option>Basic</option>
-				<option>Goofy</option>
-			</select>
-
 			<select onchange="formatDoc('formatblock',this[this.selectedIndex].value);this.selectedIndex=0;">
-				<option selected>- formatting -</option>
-				<option value="h1">Title 1 &lt;h1&gt;</option>
-				<option value="h2">Title 2 &lt;h2&gt;</option>
-				<option value="h3">Title 3 &lt;h3&gt;</option>
-				<option value="h4">Title 4 &lt;h4&gt;</option>
-				<option value="h5">Title 5 &lt;h5&gt;</option>
-				<option value="h6">Subtitle &lt;h6&gt;</option>
-				<option value="p">Paragraph &lt;p&gt;</option>
-				<option value="pre">Preformatted &lt;pre&gt;</option>
-			</select>
+<option selected>- formatting -</option>
+<option value="h1">Title 1 &lt;h1&gt;</option>
+<option value="h2">Title 2 &lt;h2&gt;</option>
+<option value="h3">Title 3 &lt;h3&gt;</option>
+<option value="h4">Title 4 &lt;h4&gt;</option>
+<option value="h5">Title 5 &lt;h5&gt;</option>
+<option value="h6">Subtitle &lt;h6&gt;</option>
+<option value="p">Paragraph &lt;p&gt;</option>
+<option value="pre">Preformatted &lt;pre&gt;</option>
+</select>
 			<select onchange="formatDoc('fontname',this[this.selectedIndex].value);this.selectedIndex=0;">
 <option class="heading" selected>- font -</option>
 <option>Arial</option>

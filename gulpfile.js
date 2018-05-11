@@ -1,9 +1,14 @@
 var gulp = require( 'gulp' );
+
 var postcss = require( 'gulp-postcss' );
+var postcssNested = require( 'postcss-nested' );
+var postcssImport = require( 'postcss-import' );
+var postcssUrl = require( 'postcss-url' );
+var postcssReporter = require( 'postcss-reporter' );
+var cssNano = require( 'gulp-cssnano' );
+
 var babel = require( 'gulp-babel' );
 var requirejsOptimize = require( 'gulp-requirejs-optimize' );
-var postcssNested = require( 'postcss-nested' );
-var cssnext = require( 'gulp-cssnext' );
 var path = require( 'path' );
 var fs = require( 'fs' );
 var exec = require( 'child_process' ).exec;
@@ -13,10 +18,8 @@ var reload = browserSync.reload;
 
 gulp.task( 'build-css', [ 'clean-dist' ], function(){
 	return gulp.src( './src/css/_all.css' )
-    	.pipe( cssnext({
-    		compress: true
-    	}))
-    	.pipe( postcss( [ postcssNested ] ) )
+    	.pipe( postcss( [ postcssNested, postcssUrl, postcssImport, postcssReporter ] ) )
+        .pipe( cssNano() )
     	.pipe( gulp.dest( './dist/css' ) );
 });
 

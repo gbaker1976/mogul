@@ -1,1 +1,0 @@
-define("app",["exports"],function(e){"use strict";function t(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(e,"__esModule",{value:!0});var n=e.App=function r(e){t(this,r),this.config=e||{}}}),require(["app"]);

@@ -1,1 +1,0 @@
-define(["mogul"], function (_mogul) {});
