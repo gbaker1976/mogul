@@ -1,0 +1,38 @@
+[
+	{
+		"name": "Basic",
+		"key": "basic",
+		"rules": {
+			"body": {
+				"color": "#666",
+				"font-family": "Geneva",
+				"font-size": "1.5rem"
+			},
+			".hero": {
+				"width": "100%",
+				"height": "500px",
+				"background-color": "#000",
+				"color": "#fff"
+			}
+		}
+
+	},{
+		"name": "Runcible Spoon",
+		"key": "runc",
+		"rules": {
+			"body": {
+				"color": "red",
+				"font-family": "Georgia",
+				"font-size": "1.8rem"
+			},
+			".hero": {
+				"width": "100%",
+				"height": "500px",
+				"background-color": "#000",
+				"color": "#fff"
+			}
+		}
+
+	}
+
+]

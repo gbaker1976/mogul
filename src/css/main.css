@@ -1,0 +1,113 @@
+:host {
+	--menu-color: rgba(0,0,0,0.85);
+}
+body {background-color: #eee}
+
+.toolbar {
+	position: absolute;
+	background-color: var(--menu-color);
+	color: #fff;
+	border-radius: 5px;
+	left: -5000px;
+	opacity: 0;
+	padding: 5px;
+	z-index: 1000;
+}
+
+.toolbar:before {
+    border-top: 7px solid var(--menu-color);
+    border-right: 7px solid transparent;
+    border-left: 7px solid transparent;
+    bottom: -7px;
+    content: '';
+    display: block;
+    left: 50%;
+    margin-left: -7px;
+    position: absolute;
+}
+
+.toolbar.s--visible {opacity: 1}
+
+/* The element to hover over */
+.rng {
+  display: inline-block;
+  position: relative;
+}
+
+.rng .popover {
+	background-color: var(--menu-color);
+	border-radius: 5px;
+	bottom: 42px;
+	box-shadow: 0 0 5px rgba(0,0,0,0.4);
+	color: #fff;
+	display: none;
+	font-size: 12px;
+	font-family: 'Helvetica',sans-serif;
+	left: -95px;
+	padding: 7px 10px;
+	position: absolute;
+	width: 200px;
+	z-index: 4;
+}
+
+.rng:hover .popover {
+  display: block;
+  -webkit-animation: fade-in .3s linear 1, move-up .3s linear 1;
+  -moz-animation: fade-in .3s linear 1, move-up .3s linear 1;
+  -ms-animation: fade-in .3s linear 1, move-up .3s linear 1;
+}
+
+@-webkit-keyframes fade-in {
+	from   { opacity: 0; }
+	to { opacity: 1; }
+}
+@-moz-keyframes fade-in {
+	from   { opacity: 0; }
+	to { opacity: 1; }
+}
+@-ms-keyframes fade-in {
+	from   { opacity: 0; }
+	to { opacity: 1; }
+}
+@-webkit-keyframes move-up {
+	from   { bottom: 30px; }
+	to { bottom: 42px; }
+}
+@-moz-keyframes move-up {
+	from   { bottom: 30px; }
+	to { bottom: 42px; }
+}
+@-ms-keyframes move-up {
+	from   { bottom: 30px; }
+	to { bottom: 42px; }
+}
+
+.edit-item, .edit-item-sep {
+	display: inline-block;
+}
+
+.edit-item {
+	cursor: pointer;
+	margin-right: .5rem;
+}
+
+.s--disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.edit-item-sep {
+	margin: 0 .25rem;
+}
+
+.edit-canvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	overflow: scroll;
+	color: #fff;
+}
