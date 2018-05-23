@@ -9,9 +9,9 @@ export class Editor extends Component {
 		super();
 		this.initDispatcher();
 		this.initStyles();
-		//this.initPlugins();
 		this.initToolbar();
 		this.initCanvas();
+		this.initPlugins();
 		this.loadDoc();
 	}
 
@@ -34,14 +34,13 @@ export class Editor extends Component {
 
 	initPlugins() {
 		this.pluginRegistry = new PluginRegistry();
+		this.dispatcher.register(this.pluginRegistry);
+		this.pluginRegistry.loadPlugins();
 	}
 
 	initToolbar() {
 		const toolbarConfig = {
 			items: [
-				'undo',
-				'redo',
-				'separator',
 				'cut',
 				'copy',
 				'paste',

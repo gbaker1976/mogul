@@ -1,14 +1,42 @@
+import {Emitter} from '../emitter.js';
 import {ImagePlugin} from './image/plugin.js';
+import {AnchorPlugin} from './anchor/plugin.js';
 
-export class PluginRegistry {
-	constructor(bus) {
-		this.messageBus = bus;
-		this.loadPlugins();
+export class PluginRegistry extends Emitter {
+	constructor() {
+		super();
 	}
 
 	loadPlugins() {
 		this.aspects = {};
-		this.aspects = Object.assign({}, this.aspects, (new ImagePlugin(this.messageBus)).getAspects());
+
+		this.pluginInstances = [
+			new ImagePlugin(),
+			new AnchorPlugin()
+		];
+
+		this.pluginInstances.forEach(p => this.registerAspects(p))
+	}
+
+	registerAspects(plugin) {
+		const aspects = plugin.getAspects();
+
+		for (let k in aspects) {
+			if (aspects.hasOwnProperty(k)) {
+				if (this.aspects[k]) {
+					this.aspects[k] = Object.assign({}, this.aspects[k], aspects[k]);
+				} else {
+					this.aspects[k] = aspects[k];
+				}
+			}
+		}
+
+		this.emit({
+			type: 'pluginRegistered',
+			data: {
+				aspects: aspects
+			}
+		});
 	}
 
 	getAspects(category) {

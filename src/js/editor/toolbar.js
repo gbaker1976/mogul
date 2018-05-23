@@ -1,33 +1,32 @@
 import {Control} from './control.js';
 import {ToolbarCommandProxy} from './toolbar-command-proxy.js';
-import {AnchorController} from './controllers/anchor.js';
 
 export class Toolbar extends Control {
 	get availableToolbarItems() {
-		return [
-			{key: 'undo', command: 'undo', allowedContexts: 'any'},
-			{key: 'redo', command: 'redo', allowedContexts: 'any'},
-			{key: 'cut', command: 'cut', allowedContexts: 'any'},
-			{key: 'copy', command: 'copy', allowedContexts: 'any'},
-			{key: 'paste', command: 'paste', allowedContexts: 'any'},
-			{key: 'bold', command: 'bold', allowedContexts: 'flow'},
-			{key: 'italic', command: 'italic', allowedContexts: 'flow'},
-			{key: 'underline', command: 'underline', allowedContexts: 'flow'},
-			{key: 'strikethrough', command: 'strikethrough', allowedContexts: 'flow'},
-			{key: 'superscript', command: 'superscript', allowedContexts: 'flow'},
-			{key: 'subscript', command: 'subscript', allowedContexts: 'flow'},
-			{key: 'list-ol', command: 'insertOrderedList', allowedContexts: 'flow'},
-			{key: 'list-ul', command: 'insertUnorderedList', allowedContexts: 'flow'},
-			{key: 'outdent', command: 'outdent', allowedContexts: 'block'},
-			{key: 'indent', command: 'indent', allowedContexts: 'block'},
-			{key: 'align-left', command: 'justifyLeft', allowedContexts: 'flow'},
-			{key: 'align-center', command: 'justifyCenter', allowedContexts: 'flow'},
-			{key: 'align-justify', command: 'justifyFull', allowedContexts: 'flow'},
-			{key: 'align-right', command: 'justifyRight', allowedContexts: 'flow'},
-			{key: 'link', command: 'insertLink', allowedContexts: 'flow'},
-			{key: 'hashtag', command: 'insertAnchor', controller: AnchorController, allowedContexts: 'flow'},
-			{key: 'separator'}
-		];
+		if (!this._availableToolbarItems) {
+			this._availableToolbarItems = [
+				{key: 'cut', command: 'cut', allowedContexts: 'any'},
+				{key: 'copy', command: 'copy', allowedContexts: 'any'},
+				{key: 'paste', command: 'paste', allowedContexts: 'any'},
+				{key: 'bold', command: 'bold', allowedContexts: 'flow'},
+				{key: 'italic', command: 'italic', allowedContexts: 'flow'},
+				{key: 'underline', command: 'underline', allowedContexts: 'flow'},
+				{key: 'strikethrough', command: 'strikethrough', allowedContexts: 'flow'},
+				{key: 'superscript', command: 'superscript', allowedContexts: 'flow'},
+				{key: 'subscript', command: 'subscript', allowedContexts: 'flow'},
+				{key: 'list-ol', command: 'insertOrderedList', allowedContexts: 'flow'},
+				{key: 'list-ul', command: 'insertUnorderedList', allowedContexts: 'flow'},
+				{key: 'outdent', command: 'outdent', allowedContexts: 'block'},
+				{key: 'indent', command: 'indent', allowedContexts: 'block'},
+				{key: 'align-left', command: 'justifyLeft', allowedContexts: 'flow'},
+				{key: 'align-center', command: 'justifyCenter', allowedContexts: 'flow'},
+				{key: 'align-justify', command: 'justifyFull', allowedContexts: 'flow'},
+				{key: 'align-right', command: 'justifyRight', allowedContexts: 'flow'},
+				{key: 'link', command: 'insertLink', allowedContexts: 'flow'},
+				{key: 'separator'}
+			];
+		}
+		return this._availableToolbarItems;
 	}
 	get defaultConfig() {
 		const defaultConfig = {
@@ -53,15 +52,27 @@ export class Toolbar extends Control {
 		this.registerDomEventHandler( 'click', this.handleClick.bind(this) );
 
 		this.setHandlers({
-			'contextChanged': this.onContextChanged.bind(this)
+			'contextChanged': this.onContextChanged.bind(this),
+			'pluginRegistered': this.onPluginRegistered.bind(this)
 		});
+	}
+
+	onPluginRegistered(evt) {
+		const aspects = evt.data.aspects;
+
+		if (aspects && aspects.toolbar) {
+			aspects.toolbar.forEach(i => {
+				this._availableToolbarItems.push(i);
+				this.viewEl.appendChild(this.buildItem(i));
+			})
+		}
 	}
 
 	onContextChanged(evt) {
 		// get context key for selected nodes
 		let el = evt.data.selectedNode;
 
-		
+
 	}
 
 	setPosition(rect) {
@@ -101,10 +112,8 @@ export class Toolbar extends Control {
 				type: 'document'
 			};
 
-			let controller = this.invokeController(item);
-
-			if (controller) {
-				evt.data.el = controller.newElement();
+			if (item.controller) {
+				item.controller.invoke(evt.data, this.commandProxy);
 			}
 
 			this.emit(evt);
@@ -132,15 +141,6 @@ export class Toolbar extends Control {
 		}
 
 		return el;
-	}
-
-	invokeController(item) {
-		if (!item || !item.controller) return;
-
-		let controller = new item.controller(this.commandProxy);
-		controller.invoke();
-
-		return controller;
 	}
 
 	switchView(el) {

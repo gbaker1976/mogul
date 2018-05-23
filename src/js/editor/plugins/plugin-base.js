@@ -1,17 +1,11 @@
 export class PluginBase {
-	constructor() {
+	constructor() {}
 
+	invoke(eventData, commandProxy) {
+		throw new Error('You must override this method');
 	}
 
 	getAspects() {
-
-	}
-
-	registerChannel(channel) {
-		this.channel = channel;
-	}
-
-	listenForEvents() {
-		
+		throw new Error('you must override this method');
 	}
 }
