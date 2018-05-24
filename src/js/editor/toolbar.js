@@ -1,5 +1,6 @@
 import {Control} from './control.js';
 import {ToolbarCommandProxy} from './toolbar-command-proxy.js';
+import {HtmlUtils} from './html-utils.js';
 
 export class Toolbar extends Control {
 	get availableToolbarItems() {

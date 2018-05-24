@@ -1,5 +1,6 @@
 import {Control} from './control.js';
 import {SelectionController} from './selection-controller.js';
+import {HtmlUtils} from './html-utils.js';
 
 export class Canvas extends Control {
 	constructor(el, config = {}) {
@@ -157,7 +158,7 @@ export class Canvas extends Control {
 		});
 	}
 
-	updateEditingContext() {
+	updateEditingContext(range) {
 		this.emit({
 			type: 'contextChanged',
 			data: {
@@ -195,23 +196,11 @@ export class Canvas extends Control {
 		if (target.nodeType === 3) {
 			this.splitNodeForEdit(target, node, preserveSelection);
 			return;
+		} else if (target.nodeType === 1) { // element
+			if (HtmlUtils.allowedContent(node, target)) {
+
+			}
 		}
-
-		// range.startContainer.split(range.startOffset)
-		// range.endContainer.split(range.endOffset)
-
-
-		// target.childNodes.forEach(c => node.appendChild(c.cloneNode(true)));
-		// target.parentElement.insertBefore(node, target);
-		//
-		// if (preserveSelection) {
-		// 	this.selectionController.resetSelection(
-		// 		node,
-		// 		this.selectionController.duplicateRangeForNodes(range, node.firstChild)
-		// 	);
-		// }
-		//
-		// target.parentElement.removeChild(target);
 	}
 
 	splitNodeForEdit(target, node, preserveSelection = false) {

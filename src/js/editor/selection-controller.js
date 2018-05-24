@@ -6,8 +6,10 @@ export class SelectionController {
 
 	initHandlers() {
 		this.doc.addEventListener('mousedown', e => {
-			this.doc.getSelection().removeAllRanges();
-			this.selectionHandler();
+			if (!e.shiftKey) {
+				this.doc.getSelection().removeAllRanges();
+				this.selectionHandler();
+			}
 		});
 
 		// ### selecting text and processing ranges
@@ -45,16 +47,20 @@ export class SelectionController {
 		}
 	}
 
-	getWorkNodeForCurrentSelection() {
+	getWorkNodeForCurrentSelection(expandTextSelection = false) {
 		const rng = this.ensureSelectedRange();
-		return rng && this.getWorkNode(rng);
+		return rng && this.getWorkNode(rng, expandTextSelection);
 	}
 
-	getWorkNode(range) {
+	getWorkNode(range, expandTextSelection = false) {
 		let n;
 
 		if (range.startContainer === range.endContainer) {
-			n = range.startContainer;
+			if (range.startContainer.nodeType === 3 && expandTextSelection) {
+				n = range.commonAncestorContainer;
+			} else {
+				n = range.startContainer;
+			}
 		} else {
 			n = range.commonAncestorContainer;
 		}
