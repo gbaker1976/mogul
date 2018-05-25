@@ -1,9 +1,25 @@
 import {PluginBase} from '../plugin-base.js';
 
 export class AnchorPlugin extends PluginBase {
-	invoke(state, proxy) {
-		state.el = this.newElement();
-		proxy.switchView(this.buildView());
+
+	get key() {
+		return 'hashtag';
+	}
+
+	get command() {
+		return this.invoke.bind(this);
+	}
+
+	invoke(command, ...opts) {
+		switch (command) {
+			case 'init' :
+				this.proxy = opts[0];
+				break;
+			case 'click' :
+				opts[0].el = this.newElement();
+				this.proxy.switchView(this.buildView());
+				break;
+		}
 	}
 
 	buildView() {
@@ -21,8 +37,12 @@ export class AnchorPlugin extends PluginBase {
 	getAspects() {
 		return {
 			toolbar: [
-				{key: 'hashtag', command: 'insertAnchor', controller: this}
+				{key: this.key, command: 'insertAnchor', controller: this}
 			]
 		}
+	}
+
+	checkValidNode(node) {
+		return node.nodeName === 'a';
 	}
 }

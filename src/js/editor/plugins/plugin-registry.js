@@ -1,6 +1,7 @@
 import {Emitter} from '../emitter.js';
 import {ImagePlugin} from './image/plugin.js';
 import {AnchorPlugin} from './anchor/plugin.js';
+import {BoldPlugin} from './bold/plugin.js';
 
 export class PluginRegistry extends Emitter {
 	constructor() {
@@ -11,6 +12,7 @@ export class PluginRegistry extends Emitter {
 		this.aspects = {};
 
 		this.pluginInstances = [
+			new BoldPlugin(),
 			new ImagePlugin(),
 			new AnchorPlugin()
 		];
@@ -34,7 +36,7 @@ export class PluginRegistry extends Emitter {
 		this.emit({
 			type: 'pluginRegistered',
 			data: {
-				aspects: aspects
+				plugin: plugin
 			}
 		});
 	}

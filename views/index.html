@@ -2,45 +2,6 @@
 <html>
 	<head>
 		<title>Rich Text Editor</title>
-		<script type="text/javascript">
-			let oDoc, oDocElm, sDefTxt;
-
-			const buildRule = (sel, rules) => {
-				let outRule = `${sel} {`;
-
-				for(let r in rules) {
-					outRule += `${r}:${rules[r]};`;
-				}
-
-				return outRule += '}';
-			}
-
-			const clearTheme = (sheet) => {
-				let i = sheet.cssRules.length-1;
-
-				while( i >= 0 ) {
-					sheet.deleteRule(i);
-					i--;
-				}
-			}
-
-			const changeDocTheme = (idx) => {
-				const sheet = oDoc.styleSheets[1];
-				const theme = themes[idx];
-
-				clearTheme(sheet);
-
-				for ( let rule in theme.rules ) {
-					sheet.insertRule( buildRule( rule, theme.rules[rule] ));
-				}
-			}
-
-			// intended for local tools popup support
-			const initSelectionHandler = (doc) => {
-
-			}
-
-		</script>
 	</head>
 	<body>
 		<!-- <div class="toolbar l--vertical">

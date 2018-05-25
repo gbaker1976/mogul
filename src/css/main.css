@@ -1,7 +1,10 @@
 :host {
 	--menu-color: rgba(0,0,0,0.85);
+	--active-color: #2D882D;
 }
-body {background-color: #eee}
+body {
+	background-color: #eee;
+}
 
 .toolbar {
 	position: absolute;
@@ -94,6 +97,10 @@ body {background-color: #eee}
 .s--disabled {
 	opacity: 0.5;
 	cursor: not-allowed;
+}
+
+.edit-item.s--active {
+	color: var(--active-color);
 }
 
 .edit-item-sep {

@@ -1,12 +1,21 @@
 import {Control} from './control.js';
 import {SelectionController} from './selection-controller.js';
 import {HtmlUtils} from './html-utils.js';
+import {CanvasCommandProxy} from './canvas-command-proxy.js';
 
 export class Canvas extends Control {
 	constructor(el, config = {}) {
 		super(el, config);
 
 		this.initHandlers();
+	}
+
+	get commandProxy() {
+		if (!this.proxy) {
+			this.proxy = new CanvasCommandProxy(this);
+		}
+
+		return this.proxy;
 	}
 
 	initHandlers() {
@@ -32,10 +41,11 @@ export class Canvas extends Control {
 			case 'insertLink' :
 				break;
 			case 'insertAnchor' :
-				this.insertAnchor(evt);
+				this.wrapCurrentSelection(evt.data.el);
 				break;
 			default :
-				this.doc.execCommand( evt.data.command );
+				//this.doc.execCommand( evt.data.command );
+				evt.data.command('edit', this.commandProxy);
 		}
 	}
 
@@ -167,11 +177,11 @@ export class Canvas extends Control {
 		});
 	}
 
-	insertAnchor(evt) {
+	wrapCurrentSelection(el) {
 		const n = this.selectionController.getWorkNodeForCurrentSelection();
 
 		if (n) {
-			this.replaceNodeForEdit(n, evt.data.el, true);
+			this.replaceNodeForEdit(n, el, true);
 			const r = this.selectionController.getRangeForCurrentSelection();
 			this.placeToolbar(r.getBoundingClientRect());
 		}
