@@ -28,7 +28,7 @@ export class Canvas extends Control {
 		this.selectionController = new SelectionController(this.doc);
 		this.selectionController.setSelectionHandler((range, hasRange = false) => {
 			if (hasRange) {
-				this.updateEditingContext(range);
+				this.updateEditingContext();
 				this.placeToolbar(range.getBoundingClientRect());
 			} else {
 				this.clearToolbar();
@@ -44,7 +44,6 @@ export class Canvas extends Control {
 				this.wrapCurrentSelection(evt.data.el);
 				break;
 			default :
-				//this.doc.execCommand( evt.data.command );
 				evt.data.command('edit', this.commandProxy);
 		}
 	}
@@ -168,11 +167,11 @@ export class Canvas extends Control {
 		});
 	}
 
-	updateEditingContext(range) {
+	updateEditingContext() {
 		this.emit({
 			type: 'contextChanged',
 			data: {
-				selectedNode: this.selectionController.getWorkNodeForCurrentSelection()
+				selectedNode: this.selectionController.getWorkNodeForCurrentSelection(true)
 			}
 		});
 	}
@@ -184,21 +183,6 @@ export class Canvas extends Control {
 			this.replaceNodeForEdit(n, el, true);
 			const r = this.selectionController.getRangeForCurrentSelection();
 			this.placeToolbar(r.getBoundingClientRect());
-		}
-	}
-
-	splitNode(node, offset) {
-		if (node && offset > -1) {
-			switch (node.nodeType) {
-				case 1 : // element
-
-					break;
-				case 3 : // text
-					return [node, node.splitText(offset)];
-					break;
-				case 4 : // comment
-				case 8 : // cdata
-			}
 		}
 	}
 
@@ -215,10 +199,10 @@ export class Canvas extends Control {
 
 	splitNodeForEdit(target, node, preserveSelection = false) {
 		const range = this.selectionController.getRangeForCurrentSelection();
-		let nodes = this.splitNode(target, range.endOffset);
+		let nodes = HtmlUtils.splitNode(target, range.endOffset);
 
 		target.parentElement.insertBefore(node, nodes[1]);
-		nodes = this.splitNode(nodes[0], range.startOffset);
+		nodes = HtmlUtils.splitNode(nodes[0], range.startOffset);
 		node.appendChild(nodes[1]);
 
 		if (preserveSelection) {

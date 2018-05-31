@@ -1,0 +1,18 @@
+{
+	"start": "node",
+	"args": [
+		"./app.js"
+	],
+	"env": {
+		"PORT": 6000
+	},
+	"openBrowser": "http://localhost:6000/",
+	"watch": {
+		"root": "src",
+		"paths": [
+			"js",
+			"css",
+			"data"
+		]
+	}
+}

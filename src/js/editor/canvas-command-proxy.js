@@ -6,4 +6,8 @@ export class CanvasCommandProxy {
 	wrapCurrentSelection(el) {
 		this.contextObject.wrapCurrentSelection(el);
 	}
+
+	resetEditingContext() {
+		this.contextObject.updateEditingContext();
+	}
 }

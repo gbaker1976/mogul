@@ -43,6 +43,6 @@ export class AnchorPlugin extends PluginBase {
 	}
 
 	checkValidNode(node) {
-		return node.nodeName === 'a';
+		return node.nodeName.toLowerCase() === 'a';
 	}
 }

@@ -1,0 +1,4 @@
+:host {
+	--menu-color: rgba(0, 0, 0, 0.85);
+	--active-color: #50cc50;
+}

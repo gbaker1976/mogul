@@ -24,16 +24,15 @@ export class BoldPlugin extends PluginBase {
 		}
 	}
 
+	// proxy is the canvas command proxy
 	doEdit(proxy) {
 		proxy.wrapCurrentSelection(this.newElement());
+		proxy.resetEditingContext();
 	}
 
 	newElement() {
 		const el = document.createElement('span');
-
-		el.style.fontWeight = 'bold';
 		el.classList.add('s--editor-bold');
-
 		return el;
 	}
 
@@ -46,6 +45,6 @@ export class BoldPlugin extends PluginBase {
 	}
 
 	checkValidNode(node) {
-		return node.nodeName === 'span' && node.classList.contains('s--editor-bold');
+		return node.nodeName.toLowerCase() === 'span' && node.classList.contains('s--editor-bold');
 	}
 }

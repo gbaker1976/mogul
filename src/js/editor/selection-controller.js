@@ -57,7 +57,11 @@ export class SelectionController {
 
 		if (range.startContainer === range.endContainer) {
 			if (range.startContainer.nodeType === 3 && expandTextSelection) {
-				n = range.commonAncestorContainer;
+				if (this.containsFullNodeContents(range)) {
+					n = range.startContainer.parentElement;
+				} else {
+					n = range.startContainer;
+				}
 			} else {
 				n = range.startContainer;
 			}
@@ -66,6 +70,13 @@ export class SelectionController {
 		}
 
 		return n;
+	}
+
+	containsFullNodeContents(range) {
+		if (range.startContainer.parentElement.childNodes.length === 1 &&
+			range.startContainer.nodeValue === range.startContainer.parentElement.firstChild.nodeValue) {
+				return true;
+			}
 	}
 
 	duplicateRangeForNodes(range, ...nodes) {

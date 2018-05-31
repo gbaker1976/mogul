@@ -28,6 +28,6 @@ export class ImagePlugin extends PluginBase {
 	}
 
 	checkValidNode(node) {
-		return node.nodeName === 'img';
+		return node.nodeName.toLowerCase() === 'img';
 	}
 }

@@ -19,4 +19,19 @@ export class HtmlUtils {
 
 		return false;
 	}
+
+	static splitNode(node, offset) {
+		if (node && offset > -1) {
+			switch (node.nodeType) {
+				case 1 : // element
+
+					break;
+				case 3 : // text
+					return [node, node.splitText(offset)];
+					break;
+				case 4 : // comment
+				case 8 : // cdata
+			}
+		}
+	}
 }
