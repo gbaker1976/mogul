@@ -2,6 +2,10 @@ import {Emitter} from '../emitter.js';
 import {ImagePlugin} from './image/plugin.js';
 import {AnchorPlugin} from './anchor/plugin.js';
 import {BoldPlugin} from './bold/plugin.js';
+import {ItalicPlugin} from './italic/plugin.js';
+import {UnderlinePlugin} from './underline/plugin.js';
+import {StrikeThroughPlugin} from './strikethrough/plugin.js';
+import {HeadingPlugin} from './heading/plugin.js';
 
 export class PluginRegistry extends Emitter {
 	constructor() {
@@ -14,7 +18,10 @@ export class PluginRegistry extends Emitter {
 		this.pluginInstances = [
 			new BoldPlugin(),
 			new ImagePlugin(),
-			new AnchorPlugin()
+			new AnchorPlugin(),
+			new ItalicPlugin(),
+			new UnderlinePlugin(),
+			new StrikeThroughPlugin()
 		];
 
 		this.pluginInstances.forEach(p => this.registerAspects(p))

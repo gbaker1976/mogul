@@ -7,6 +7,10 @@ export class CanvasCommandProxy {
 		this.contextObject.wrapCurrentSelection(el);
 	}
 
+	styleSelection(styleClass, element) {
+		this.contextObject.styleSelection(styleClass, element);
+	}
+
 	resetEditingContext() {
 		this.contextObject.updateEditingContext();
 	}

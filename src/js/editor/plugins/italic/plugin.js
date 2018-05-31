@@ -1,13 +1,13 @@
 import {PluginBase} from '../plugin-base.js';
 
-export class BoldPlugin extends PluginBase {
+export class ItalicPlugin extends PluginBase {
 
 	get key() {
-		return 'bold';
+		return 'italic';
 	}
 
 	get styleClass() {
-		return 's--editor-bold';
+		return 's--editor-italic';
 	}
 
 	get element() {

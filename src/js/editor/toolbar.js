@@ -119,14 +119,13 @@ export class Toolbar extends Control {
 	}
 
 	shouldVetoClick(e) {
-		return e.target.classList.contains('s--disabled') ||
-		       e.target.classList.contains('s--active');
+		return e.target.classList.contains('s--disabled');
 	}
 
 	handleClick(e) {
 		const item = this.getItemForClick(e);
 
-		if (this.shouldVetoClick(e)) return;
+		//if (this.shouldVetoClick(e)) return;
 
 		if (item) {
 			let evt = {

@@ -4,7 +4,7 @@
 		"./app.js"
 	],
 	"env": {
-		"PORT": 6000
+		"PORT": 5000
 	},
 	"openBrowser": "http://localhost:6000/",
 	"watch": {

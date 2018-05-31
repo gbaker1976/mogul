@@ -1,13 +1,13 @@
 import {PluginBase} from '../plugin-base.js';
 
-export class BoldPlugin extends PluginBase {
+export class UnderlinePlugin extends PluginBase {
 
 	get key() {
-		return 'bold';
+		return 'underline';
 	}
 
 	get styleClass() {
-		return 's--editor-bold';
+		return 's--editor-underline';
 	}
 
 	get element() {

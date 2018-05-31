@@ -1,3 +1,15 @@
 .s--editor-bold {
-	font-weight: bold; 
+	font-weight: bold;
+}
+
+.s--editor-italic {
+	font-style: italic;
+}
+
+.s--editor-underline {
+	text-decoration: underline;
+}
+
+.s--editor-strikethrough {
+	text-decoration: line-through;
 }

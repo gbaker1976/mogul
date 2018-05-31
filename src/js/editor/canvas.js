@@ -176,8 +176,17 @@ export class Canvas extends Control {
 		});
 	}
 
-	wrapCurrentSelection(el) {
-		const n = this.selectionController.getWorkNodeForCurrentSelection();
+	styleSelection(styleClass, element) {
+		if (this.selectionController.containsFullNodeContents(this.selectionController.getRangeForCurrentSelection())) {
+			const n = this.selectionController.getWorkNodeForCurrentSelection(true);
+			n.classList.toggle(styleClass);
+		} else {
+			this.wrapCurrentSelection(element);
+		}
+	}
+
+	wrapCurrentSelection(el, n) {
+		n = n || this.selectionController.getWorkNodeForCurrentSelection();
 
 		if (n) {
 			this.replaceNodeForEdit(n, el, true);

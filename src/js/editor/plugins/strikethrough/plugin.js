@@ -1,13 +1,13 @@
 import {PluginBase} from '../plugin-base.js';
 
-export class BoldPlugin extends PluginBase {
+export class StrikeThroughPlugin extends PluginBase {
 
 	get key() {
-		return 'bold';
+		return 'strikethrough';
 	}
 
 	get styleClass() {
-		return 's--editor-bold';
+		return 's--editor-strikethrough';
 	}
 
 	get element() {
