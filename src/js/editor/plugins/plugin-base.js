@@ -14,10 +14,12 @@ export class PluginBase {
 	}
 
 	checkStateForNode(node) {
-		if (this.checkValidNode(node)) {
-			this.proxy.activateToolbarItem(this.key);
-		} else {
-			this.proxy.deactivateToolbarItem(this.key);
+		if (node) {
+			if (this.checkValidNode(node)) {
+				this.proxy.activateToolbarItem(this.key);
+			} else {
+				this.proxy.deactivateToolbarItem(this.key);
+			}
 		}
 	}
 

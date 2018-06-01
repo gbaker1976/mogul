@@ -34,4 +34,27 @@ export class HtmlUtils {
 			}
 		}
 	}
+
+	static iterateNodes(nodes, callback, deep = false) {
+		nodes.forEach(n => {
+			if (n.nodeType === 3) {
+				callback(n);
+			} else {
+				if (deep) {
+					HtmlUtils.iterateNodes(n.childNodes, callback, deep);
+				}
+			}
+		});
+	}
+
+	static concatNodes(...args /* last arg deep = true|false */) {
+		let newNode = document.createTextNode('');
+		let deep = (typeof args[args.length-1] === 'boolean');
+
+		if (deep) args.pop();
+
+		HtmlUtils.iterateNodes(args, n => {newNode.nodeValue += n.nodeValue}, deep);
+
+		return newNode;
+	}
 }

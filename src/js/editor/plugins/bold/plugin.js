@@ -49,6 +49,6 @@ export class BoldPlugin extends PluginBase {
 	}
 
 	checkValidNode(node) {
-		return node.classList.contains(this.styleClass);
+		return node.classList && node.classList.contains(this.styleClass);
 	}
 }

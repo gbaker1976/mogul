@@ -49,6 +49,6 @@ export class StrikeThroughPlugin extends PluginBase {
 	}
 
 	checkValidNode(node) {
-		return node.classList.contains(this.styleClass);
+		return node.classList && node.classList.contains(this.styleClass);
 	}
 }

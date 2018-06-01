@@ -73,10 +73,24 @@ export class SelectionController {
 	}
 
 	containsFullNodeContents(range) {
-		if (range.startContainer.parentElement.childNodes.length === 1 &&
-			range.startContainer.nodeValue === range.startContainer.parentElement.firstChild.nodeValue) {
-				return true;
+		let p1;
+
+		if (range.startOffset > 0) return false;
+
+		if (range.startContainer === range.endContainer) { // single container selection
+			p1 = range.startContainer;
+			switch (p1.nodeType) {
+				case 3: // text
+					return p1.parentElement.childNodes.length === 1 &&
+						range.endOffset === p1.nodeValue.length;
+					break;
+				case 1: // element
+					debugger;
+					break;
 			}
+		}
+
+		return false;
 	}
 
 	duplicateRangeForNodes(range, ...nodes) {

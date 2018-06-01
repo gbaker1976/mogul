@@ -180,6 +180,9 @@ export class Canvas extends Control {
 		if (this.selectionController.containsFullNodeContents(this.selectionController.getRangeForCurrentSelection())) {
 			const n = this.selectionController.getWorkNodeForCurrentSelection(true);
 			n.classList.toggle(styleClass);
+			if (!n.classList.length) {
+				this.spliceNodesIfBare(n, true);
+			}
 		} else {
 			this.wrapCurrentSelection(element);
 		}
@@ -216,6 +219,29 @@ export class Canvas extends Control {
 
 		if (preserveSelection) {
 			this.selectionController.resetSelectionByNode(nodes[1]);
+		}
+	}
+
+	spliceNodesIfBare(target, preserveSelection = false) {
+		const range = this.selectionController.getRangeForCurrentSelection();
+		let newNode, newRange;
+		const parent = target.parentElement;
+
+		if (target.previousSibling.nodeType === 3 && target.nextSibling.nodeType === 3) {
+			newNode = HtmlUtils.concatNodes(target.previousSibling, target, target.nextSibling, true);
+
+			parent.insertBefore(newNode, target.previousSibling);
+
+			if (preserveSelection) {
+				newRange = range.cloneRange();
+				newRange.setStart(newNode, target.previousSibling.nodeValue.length);
+				newRange.setEnd(newNode, newRange.startOffset + range.endOffset);
+				this.selectionController.resetSelectionByRange(newRange);
+			}
+
+			parent.removeChild(target.previousSibling);
+			parent.removeChild(target.nextSibling);
+			parent.removeChild(target);
 		}
 	}
 
