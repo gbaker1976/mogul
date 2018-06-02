@@ -1,3 +1,5 @@
+import {HtmlUtils} from './html-utils.js';
+
 export class SelectionController {
 	constructor(doc) {
 		this.doc = doc;
@@ -47,6 +49,23 @@ export class SelectionController {
 		}
 	}
 
+	getSelectedNodes() {
+		const sel = this.doc.getSelection();
+		const rng = this.ensureSelectedRange();
+		const nodes = [];
+
+		if (rng) {
+			const parent = this.getWorkNode(rng);
+			HtmlUtils.iterateNodes([parent], n => {
+				if (sel.containsNode(n)) {
+					nodes.push(n);
+				}
+			}, true);
+		}
+
+		return nodes;
+	}
+
 	getWorkNodeForCurrentSelection(expandTextSelection = false) {
 		const rng = this.ensureSelectedRange();
 		return rng && this.getWorkNode(rng, expandTextSelection);
@@ -70,6 +89,11 @@ export class SelectionController {
 		}
 
 		return n;
+	}
+
+	isMultiNodeSelection() {
+		const range = this.ensureSelectedRange();
+		return range.startContainer !== range.endContainer;
 	}
 
 	containsFullNodeContents(range) {

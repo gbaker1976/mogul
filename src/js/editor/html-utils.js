@@ -35,6 +35,12 @@ export class HtmlUtils {
 		}
 	}
 
+	static splitNodeByRange(node, range) {
+		let nodes = HtmlUtils.splitNode(node, range.endOffset);
+		nodes.splice(0, 0, ...HtmlUtils.splitNode(nodes.shift(), range.startOffset));
+		return nodes;
+	}
+
 	static iterateNodes(nodes, callback, deep = false) {
 		nodes.forEach(n => {
 			if (n.nodeType === 3) {
