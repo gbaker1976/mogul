@@ -20,6 +20,10 @@ export class HtmlUtils {
 		return false;
 	}
 
+	static replace(doc, nodeToReplace, ...nodes) {
+		debugger;
+	}
+
 	static splitNode(node, offset) {
 		if (node && offset > -1) {
 			switch (node.nodeType) {

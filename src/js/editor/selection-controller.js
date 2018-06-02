@@ -51,19 +51,29 @@ export class SelectionController {
 
 	getSelectedNodes() {
 		const sel = this.doc.getSelection();
-		const rng = this.ensureSelectedRange();
 		const nodes = [];
 
-		if (rng) {
-			const parent = this.getWorkNode(rng);
-			HtmlUtils.iterateNodes([parent], n => {
-				if (sel.containsNode(n)) {
-					nodes.push(n);
-				}
-			}, true);
-		}
+		const parent = this.getWorkNodeForCurrentSelection();
+		HtmlUtils.iterateNodes([parent], n => {
+			if (sel.containsNode(n)) {
+				nodes.push(n);
+			}
+		}, true);
 
 		return nodes;
+	}
+
+	selectNodes(...nodes) {
+		debugger;
+		const sel = this.doc.getSelection();
+		const rng = sel.getRangeAt(0);
+
+		sel.removeAllRanges();
+
+		rng.setStartBefore(nodes[0]);
+		rng.setEndAfter(nodes[nodes.length-1]);
+
+		sel.addRange(rng);
 	}
 
 	getWorkNodeForCurrentSelection(expandTextSelection = false) {
@@ -126,6 +136,16 @@ export class SelectionController {
 		}
 
 		return rng;
+	}
+
+	extendSelectionByNode(node, direction, range) {
+		const sel = this.doc.getSelection();
+
+		if ('start' === direction) {
+			range.setStart(node, 0);
+		} else if ('end' === direction) {
+			range.setEnd(node, 0);
+		}
 	}
 
 	resetSelectionByNode(node) {

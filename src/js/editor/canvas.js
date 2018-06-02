@@ -121,16 +121,33 @@ export class Canvas extends Control {
 	styleSelection(styleClass, element) {
 		const range = this.selectionController.getRangeForCurrentSelection();
 		const workNode = this.selectionController.getWorkNodeForCurrentSelection(true);
+		let nodes = [];
 
 		if (this.selectionController.isMultiNodeSelection()) {
-			this.selectionController.getSelectedNodes().forEach(n => {
-				workNode.classList.toggle(styleClass);
+			this.selectionController.getSelectedNodes().forEach((n, i, arr) => {
+				if (range.startContainer === n) {
+					nodes = HtmlUtils.splitNode(n.cloneNode(true), range.startOffset);
+					if (nodes && nodes.length > 0) {
+						HtmlUtils.replace(this.doc, n, nodes);
+						arr[i] = nodes[1];
+					}
+				} else if (range.endContainer === n) {
+					nodes = HtmlUtils.splitNode(n.cloneNode(true), range.endOffset);
+					if (nodes && nodes.length > 0) {
+						HtmlUtils.replace(this.doc, n, nodes);
+						arr[i] = nodes[0];
+					}
+				}
+
+				if (i === arr.length-1) {
+					//this.selectionController.selectNodes(...arr);
+				}
 			});
 		} else {
 			if (this.selectionController.containsFullNodeContents(range)) {
 				workNode.classList.toggle(styleClass);
 				if (!workNode.classList.length) {
-					this.spliceNodesIfBare(workNode, true);
+					this.spliceNodesIfBare(workNode);
 				}
 			} else {
 				this.wrapCurrentSelection(element);
@@ -142,39 +159,30 @@ export class Canvas extends Control {
 		n = n || this.selectionController.getWorkNodeForCurrentSelection();
 
 		if (n) {
-			this.replaceNodeForEdit(n, el, true);
+			this.replaceSingleNodeForEdit(n, el);
 			const r = this.selectionController.getRangeForCurrentSelection();
 			this.placeToolbar(r.getBoundingClientRect());
 		}
 	}
 
-	replaceNodeForEdit(target, node, preserveSelection = false) {
+	replaceSingleNodeForEdit(target, node, preserveSelection = (n) => this.selectionController.resetSelectionByNode(n)) {
 		if (target.nodeType === 3) {
-			this.splitNodeForEdit(target, node, preserveSelection);
+			this.splitSingleNodeForEdit(target, node, preserveSelection);
 			return;
-		} else if (target.nodeType === 1) { // element
-			// 1. Iterate over each node
-
-			// 2. Is current node fully selected?
-			// 2.a Yes? Apply styling at node level
-			// 2.b No? Split node and apply styling at selected node
-
 		}
 	}
 
-	splitNodeForEdit(target, node, preserveSelection = false) {
+	splitSingleNodeForEdit(target, node, preserveSelection = (n) => this.selectionController.resetSelectionByNode(n)) {
 		const range = this.selectionController.getRangeForCurrentSelection();
 		let nodes = HtmlUtils.splitNodeByRange(target, range);
 
 		node.appendChild(nodes[1]);
 		target.parentElement.insertBefore(node, nodes[2]);
 
-		if (preserveSelection) {
-			this.selectionController.resetSelectionByNode(node);
-		}
+		preserveSelection(node);
 	}
 
-	spliceNodesIfBare(target, preserveSelection = false) {
+	spliceNodesIfBare(target, preserveSelection = () => {}) {
 		const range = this.selectionController.getRangeForCurrentSelection();
 		let newNode, newRange;
 		const parent = target.parentElement;
@@ -184,11 +192,13 @@ export class Canvas extends Control {
 
 			parent.insertBefore(newNode, target.previousSibling);
 
+			newRange = range.cloneRange();
+			newRange.setStart(newNode, target.previousSibling.nodeValue.length);
+			newRange.setEnd(newNode, newRange.startOffset + range.endOffset);
+			this.selectionController.resetSelectionByRange(newRange);
+
 			if (preserveSelection) {
-				newRange = range.cloneRange();
-				newRange.setStart(newNode, target.previousSibling.nodeValue.length);
-				newRange.setEnd(newNode, newRange.startOffset + range.endOffset);
-				this.selectionController.resetSelectionByRange(newRange);
+				preserveSelection(newRange, newNode);
 			}
 
 			parent.removeChild(target.previousSibling);
