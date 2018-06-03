@@ -118,9 +118,14 @@ export class Canvas extends Control {
 		});
 	}
 
+	wrapNode(nodeToWrap, wrapperNode) {
+		wrapperNode.appendChild(nodeToWrap);
+		return wrapperNode;
+	}
+
 	styleSelection(styleClass, element) {
 		const range = this.selectionController.getRangeForCurrentSelection();
-		const workNode = this.selectionController.getWorkNodeForCurrentSelection(true);
+		let workNode = this.selectionController.getWorkNodeForCurrentSelection(true);
 		let nodes = [];
 
 		if (this.selectionController.isMultiNodeSelection()) {
@@ -128,19 +133,31 @@ export class Canvas extends Control {
 				if (range.startContainer === n) {
 					nodes = HtmlUtils.splitNode(n.cloneNode(true), range.startOffset);
 					if (nodes && nodes.length > 0) {
-						HtmlUtils.replace(this.doc, n, nodes);
+						nodes[1] = this.wrapNode(nodes[1].cloneNode(true), element.cloneNode(true));
+						HtmlUtils.replace(n, ...nodes);
 						arr[i] = nodes[1];
 					}
 				} else if (range.endContainer === n) {
 					nodes = HtmlUtils.splitNode(n.cloneNode(true), range.endOffset);
 					if (nodes && nodes.length > 0) {
-						HtmlUtils.replace(this.doc, n, nodes);
+						nodes[0] = this.wrapNode(nodes[0].cloneNode(true), element.cloneNode(true));
+						HtmlUtils.replace(n, ...nodes);
 						arr[i] = nodes[0];
+					}
+				} else {
+					workNode = n;
+					if (n.nodeType === 3) {
+						workNode = this.wrapNode(n.cloneNode(true), element.cloneNode(true))
+						HtmlUtils.replace(n, workNode);
+					}
+					workNode.classList.toggle(styleClass);
+					if (!workNode.classList.length) {
+						this.spliceNodesIfBare(workNode);
 					}
 				}
 
 				if (i === arr.length-1) {
-					//this.selectionController.selectNodes(...arr);
+					this.selectionController.selectNodes(...arr);
 				}
 			});
 		} else {
@@ -184,26 +201,34 @@ export class Canvas extends Control {
 
 	spliceNodesIfBare(target, preserveSelection = () => {}) {
 		const range = this.selectionController.getRangeForCurrentSelection();
-		let newNode, newRange;
+		let newNode, newRange, nodes = [];
 		const parent = target.parentElement;
 
-		if (target.previousSibling.nodeType === 3 && target.nextSibling.nodeType === 3) {
-			newNode = HtmlUtils.concatNodes(target.previousSibling, target, target.nextSibling, true);
-
-			parent.insertBefore(newNode, target.previousSibling);
-
-			newRange = range.cloneRange();
-			newRange.setStart(newNode, target.previousSibling.nodeValue.length);
-			newRange.setEnd(newNode, newRange.startOffset + range.endOffset);
-			this.selectionController.resetSelectionByRange(newRange);
-
-			if (preserveSelection) {
-				preserveSelection(newRange, newNode);
-			}
-
-			parent.removeChild(target.previousSibling);
-			parent.removeChild(target.nextSibling);
-			parent.removeChild(target);
+		if (target.previousSibling && target.previousSibling.nodeType === 3) {
+			nodes.push(target.previousSibling);
 		}
+
+		nodes.push(target);
+
+		if (target.nextSibling && target.nextSibling.nodeType === 3) {
+			nodes.push(target.nextSibling);
+		}
+
+		newNode = HtmlUtils.concatNodes(...nodes, true);
+
+		parent.insertBefore(newNode, target.previousSibling || target);
+		newRange = range.cloneRange();
+
+		newRange.setStart(newNode, target.previousSibling ? target.previousSibling.nodeValue.length : 0);
+		newRange.setEnd(newNode, newRange.startOffset + range.endOffset);
+		this.selectionController.resetSelectionByRange(newRange);
+
+		if (preserveSelection) {
+			preserveSelection(newRange, newNode);
+		}
+
+		target.previousSibling && parent.removeChild(target.previousSibling);
+		target.nextSibling && parent.removeChild(target.nextSibling);
+		parent.removeChild(target);
 	}
 };

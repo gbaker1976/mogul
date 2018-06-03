@@ -64,7 +64,6 @@ export class SelectionController {
 	}
 
 	selectNodes(...nodes) {
-		debugger;
 		const sel = this.doc.getSelection();
 		const rng = sel.getRangeAt(0);
 

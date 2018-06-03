@@ -20,8 +20,14 @@ export class HtmlUtils {
 		return false;
 	}
 
-	static replace(doc, nodeToReplace, ...nodes) {
-		debugger;
+	static replace(nodeToReplace, ...nodes) {
+		const parent = nodeToReplace.parentElement;
+
+		nodes.forEach(n => {
+			parent.insertBefore(n, nodeToReplace);
+		});
+
+		parent.removeChild(nodeToReplace);
 	}
 
 	static splitNode(node, offset) {
