@@ -149,9 +149,7 @@ export class Canvas extends Control {
 					if (n.nodeType === 3) {
 						workNode = this.wrapNode(n.cloneNode(true), element.cloneNode(true))
 						HtmlUtils.replace(n, workNode);
-					}
-
-					if (!workNode.classList.contains(styleClass)) {
+					} else {
 						workNode.classList.toggle(styleClass);
 					}
 
