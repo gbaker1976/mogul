@@ -150,10 +150,15 @@ export class Canvas extends Control {
 						workNode = this.wrapNode(n.cloneNode(true), element.cloneNode(true))
 						HtmlUtils.replace(n, workNode);
 					}
-					workNode.classList.toggle(styleClass);
+
+					if (!workNode.classList.contains(styleClass)) {
+						workNode.classList.toggle(styleClass);
+					}
+
 					if (!workNode.classList.length) {
 						this.spliceNodesIfBare(workNode);
 					}
+					arr[i] = workNode;
 				}
 
 				if (i === arr.length-1) {
@@ -165,6 +170,7 @@ export class Canvas extends Control {
 				workNode.classList.toggle(styleClass);
 				if (!workNode.classList.length) {
 					this.spliceNodesIfBare(workNode);
+					this.selectionController.selectNodes(workNode);
 				}
 			} else {
 				this.wrapCurrentSelection(element);
@@ -199,10 +205,9 @@ export class Canvas extends Control {
 		preserveSelection(node);
 	}
 
-	spliceNodesIfBare(target, preserveSelection = () => {}) {
+	spliceNodesIfBare(target) {
 		const range = this.selectionController.getRangeForCurrentSelection();
-		let newNode, newRange, nodes = [];
-		const parent = target.parentElement;
+		let newNode, nodes = [];
 
 		if (target.previousSibling && target.previousSibling.nodeType === 3) {
 			nodes.push(target.previousSibling);
@@ -216,19 +221,6 @@ export class Canvas extends Control {
 
 		newNode = HtmlUtils.concatNodes(...nodes, true);
 
-		parent.insertBefore(newNode, target.previousSibling || target);
-		newRange = range.cloneRange();
-
-		newRange.setStart(newNode, target.previousSibling ? target.previousSibling.nodeValue.length : 0);
-		newRange.setEnd(newNode, newRange.startOffset + range.endOffset);
-		this.selectionController.resetSelectionByRange(newRange);
-
-		if (preserveSelection) {
-			preserveSelection(newRange, newNode);
-		}
-
-		target.previousSibling && parent.removeChild(target.previousSibling);
-		target.nextSibling && parent.removeChild(target.nextSibling);
-		parent.removeChild(target);
+		return newNode;
 	}
 };
