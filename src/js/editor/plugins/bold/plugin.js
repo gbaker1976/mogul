@@ -1,3 +1,4 @@
+import {HtmlUtils} from '../../html-utils.js';
 import {PluginBase} from '../plugin-base.js';
 
 export class BoldPlugin extends PluginBase {
@@ -49,6 +50,20 @@ export class BoldPlugin extends PluginBase {
 	}
 
 	checkValidNode(node) {
-		return node.classList && node.classList.contains(this.styleClass);
+		let hasStyle = false;
+
+		if (node) {
+			HtmlUtils.iterateNodes([node], n => {
+				if (!hasStyle) {
+					if (n.nodeType === 1) {
+						hasStyle = n.classList.contains(this.styleClass);
+					} else if (n.nodeType === 3) {
+						hasStyle = n.parentElement.classList.contains(this.styleClass);
+					}
+				}
+			}, true);
+		}
+
+		return hasStyle;
 	}
 }

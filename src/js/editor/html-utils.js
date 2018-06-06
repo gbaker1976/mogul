@@ -53,12 +53,9 @@ export class HtmlUtils {
 
 	static iterateNodes(nodes, callback, deep = false) {
 		nodes.forEach(n => {
-			if (n.nodeType === 3) {
-				callback(n);
-			} else {
-				if (deep) {
-					HtmlUtils.iterateNodes(n.childNodes, callback, deep);
-				}
+			callback(n);
+			if (deep && n.childNodes) {
+				HtmlUtils.iterateNodes(n.childNodes, callback, deep);
 			}
 		});
 	}

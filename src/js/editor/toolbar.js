@@ -125,8 +125,6 @@ export class Toolbar extends Control {
 	handleClick(e) {
 		const item = this.getItemForClick(e);
 
-		//if (this.shouldVetoClick(e)) return;
-
 		if (item) {
 			let evt = {
 				data: {

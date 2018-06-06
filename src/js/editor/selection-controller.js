@@ -7,6 +7,15 @@ export class SelectionController {
 	}
 
 	initHandlers() {
+		const handler = () => {
+			const rng = this.ensureSelectedRange();
+			if (rng) {
+				this.selectionHandler(rng, true);
+			} else {
+				this.selectionHandler(rng, false)
+			}
+		};
+
 		this.doc.addEventListener('mousedown', e => {
 			if (!e.shiftKey) {
 				this.doc.getSelection().removeAllRanges();
@@ -15,12 +24,26 @@ export class SelectionController {
 		});
 
 		// ### selecting text and processing ranges
-		this.doc.addEventListener('mouseup', e => {
-			const rng = this.ensureSelectedRange();
-			if (rng) {
-				this.selectionHandler(rng, true);
-			} else {
-				this.selectionHandler(rng, false)
+		this.doc.addEventListener('mouseup', handler.bind(this));
+
+		this.doc.addEventListener('keyup', e => {
+			if (e.shiftKey) {
+				switch(e.key) {
+					case 'ArrowDown' :
+					case 'ArrowUp' :
+					case 'ArrowLeft' :
+					case 'ArrowRight' :
+					case 'PageDown' :
+					case 'PageUP' :
+					case 'Home' :
+					case 'End' :
+					// naughty browsers
+					case 'Down' :
+					case 'Up' :
+					case 'Left' :
+					case 'Right' :
+						handler();
+				}
 			}
 		});
 	}
