@@ -1,10 +1,7 @@
-import controlMixin from './control.js';
-import emitterMixin from './emitter.js';
-import configurableMixin from './configurable.js';
-import {ToolbarCommandProxy} from './toolbar-command-proxy.js';
+import Composer from './composer.js';
 import {HtmlUtils} from './html-utils.js';
 
-class Toolbar extends configurableMixin(emitterMixin(controlMixin(Object))) {
+class Toolbar extends Composer.compose('emitter', 'configurable', 'control', 'proxyable') {
 	get availableToolbarItems() {
 		if (!this._availableToolbarItems) {
 			this._availableToolbarItems = [
@@ -40,16 +37,18 @@ class Toolbar extends configurableMixin(emitterMixin(controlMixin(Object))) {
 		return defaultConfig;
 	}
 
-	get commandProxy() {
-		if (!this.proxy) {
-			this.proxy = new ToolbarCommandProxy(this);
-		}
-
-		return this.proxy;
-	}
-
 	initControl(el) {
 		super.initControl(el);
+		this.initProxy({
+			wrap: [
+				'switchView',
+				'resetView',
+				'activateToolbarItem',
+				'emit',
+				'activateToolbarItem',
+				'deactivateToolbarItem'
+			]
+		});
 		this.initFontAwesome();
 		this.el.className = this.config.className;
 		this.buildMenu();
@@ -70,7 +69,7 @@ class Toolbar extends configurableMixin(emitterMixin(controlMixin(Object))) {
 				this._availableToolbarItems.push(i);
 				this.viewEl.appendChild(this.buildItem(i));
 			});
-			plugin.invoke('init', this.commandProxy);
+			plugin.invoke('init', this.proxyInstance);
 		}
 	}
 
@@ -165,6 +164,24 @@ class Toolbar extends configurableMixin(emitterMixin(controlMixin(Object))) {
 		}
 
 		return el;
+	}
+
+	activateToolbarItem(key) {
+		if (key) {
+			const el = this.getItemNodeByKey(key);
+			if (el) {
+				el.classList.add('s--active');
+			}
+		}
+	}
+
+	deactivateToolbarItem(key) {
+		if (key) {
+			const el = this.getItemNodeByKey(key);
+			if (el) {
+				el.classList.remove('s--active');
+			}
+		}
 	}
 
 	switchView(el) {

@@ -13,18 +13,6 @@ export class ToolbarCommandProxy {
 		this.contextObject.resetView();
 	}
 
-	enableToolbarItem(key) {}
-	disableToolbarItem(key) {}
-
-	activateToolbarItem(key) {
-		if (key) {
-			const el = this.contextObject.getItemNodeByKey(key);
-			if (el) {
-				el.classList.add('s--active');
-			}
-		}
-	}
-
 	deactivateToolbarItem(key) {
 		if (key) {
 			const el = this.contextObject.getItemNodeByKey(key);

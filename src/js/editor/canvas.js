@@ -1,20 +1,9 @@
-import controlMixin from './control.js';
-import emitterMixin from './emitter.js';
-import configurableMixin from './configurable.js';
+import Composer from './composer.js';
 import {SelectionController} from './selection-controller.js';
 import {HtmlUtils} from './html-utils.js';
-import {CanvasCommandProxy} from './canvas-command-proxy.js';
 import {RegionManager} from './region-manager.js';
 
-class Canvas extends configurableMixin(emitterMixin(controlMixin(Object))) {
-	get commandProxy() {
-		if (!this.proxy) {
-			this.proxy = new CanvasCommandProxy(this);
-		}
-
-		return this.proxy;
-	}
-
+class Canvas extends Composer.compose('emitter', 'configurable', 'control', 'proxyable') {
 	get regionManager() {
 		if (!this._regionManager) {
 			this._regionManager = new RegionManager(this.doc);
@@ -57,11 +46,20 @@ class Canvas extends configurableMixin(emitterMixin(controlMixin(Object))) {
 				this.wrapCurrentSelection(evt.data.el);
 				break;
 			default :
-				evt.data.command('edit', this.commandProxy);
+				evt.data.command('edit', this.proxyInstance);
 		}
 	}
 
 	initControl(el) {
+		this.initProxy({
+			wrap: [
+				'wrapCurrentSelection',
+				'styleSelection'
+			],
+			create: {
+				'resetEditingContext': () => this.updateEditingContext()
+			}
+		});
 		this.initHandlers();
 		super.initControl(el);
 		this.el.className = 'edit-canvas';
