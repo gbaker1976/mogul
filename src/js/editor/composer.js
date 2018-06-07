@@ -2,12 +2,14 @@ import EmitterMixin from './emitter.js';
 import ControlMixin from './control.js';
 import ConfigurableMixin from './configurable.js';
 import ProxyableMixin from './proxyable.js';
+import PluggableMixin from './pluggable.js';
 
 const registry = {
 	'emitter': EmitterMixin,
 	'control': ControlMixin,
 	'configurable': ConfigurableMixin,
-	'proxyable': ProxyableMixin
+	'proxyable': ProxyableMixin,
+	'pluggable': PluggableMixin
 };
 
 export default {

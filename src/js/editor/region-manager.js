@@ -1,8 +1,14 @@
 import {Region} from './region.js';
 
-export class RegionManager {
-	constructor(doc) {
-		this.doc = doc;
+class RegionManager {
+	set document(doc) {
+		this._doc = doc;
+	}
+
+	get document() {
+		if (!this._doc) throw new Error('Document not set');
+
+		return this._doc;
 	}
 
 	get regions() {
@@ -13,12 +19,13 @@ export class RegionManager {
 		return this._regions;
 	}
 
-	initRegions() {
-		this.doc.querySelectorAll('[data-editable]').forEach(e => this.initRegionForNode(e));
+	initRegions(doc) {
+		this.document = doc;
+		this.document.querySelectorAll('[data-editable]').forEach(e => this.initRegionForNode(e));
 
-		this.doc.addEventListener('mouseup', e => {
+		this.document.addEventListener('mouseup', e => {
 			if (e.target.dataset && e.target.dataset.editable) {
-				this.doc.querySelectorAll('[data-editable].editing').forEach( e => e.classList.remove('editing') );
+				this.document.querySelectorAll('[data-editable].editing').forEach( e => e.classList.remove('editing') );
 				e.target.classList.add('editing');
 			}
 		});
@@ -38,7 +45,7 @@ export class RegionManager {
 
 	initBackspaceShim() {
 		// ensure content is wrapped/nested properly
-		this.doc.addEventListener('input', e => {
+		this.document.addEventListener('input', e => {
 			switch (e.inputType) {
 				case 'inputFromPaste' :
 					throw new Error('not implemented!');
@@ -58,11 +65,21 @@ export class RegionManager {
 	}
 
 	backFillEmptyEditRegion(el) {
-		let p = this.doc.createElement('p');
-		p.appendChild(this.doc.createTextNode('\u200B')); // unicode zero-width space
+		let p = this.document.createElement('p');
+		p.appendChild(this.document.createTextNode('\u200B')); // unicode zero-width space
 		el.innerHTML = '';
 		el.appendChild(p);
 
 		return p;
+	}
+}
+
+export default {
+	get instance() {
+		if (!this._instance) {
+			this._instance = new RegionManager();
+		}
+
+		return this._instance;
 	}
 }

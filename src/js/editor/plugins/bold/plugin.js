@@ -1,7 +1,7 @@
 import {HtmlUtils} from '../../html-utils.js';
-import {PluginBase} from '../plugin-base.js';
+import Composer from '../../composer.js';
 
-export class BoldPlugin extends PluginBase {
+export class BoldPlugin extends Composer.compose('pluggable') {
 
 	get key() {
 		return 'bold';

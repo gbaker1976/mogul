@@ -1,6 +1,6 @@
-import {PluginBase} from '../plugin-base.js';
+import Composer from '../../composer.js';
 
-export class UnderlinePlugin extends PluginBase {
+export class UnderlinePlugin extends Composer.compose('pluggable') {
 
 	get key() {
 		return 'underline';

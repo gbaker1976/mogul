@@ -1,6 +1,6 @@
-import {PluginBase} from '../plugin-base.js';
+import Composer from '../../composer.js';
 
-export class HeadingPlugin extends PluginBase {
+export class HeadingPlugin extends Composer.compose('pluggable') {
 
 	get key() {
 		return 'heading-level';

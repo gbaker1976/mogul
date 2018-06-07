@@ -1,9 +1,19 @@
 import {HtmlUtils} from './html-utils.js';
 
-export class SelectionController {
+class SelectionController {
 	constructor(doc) {
-		this.doc = doc;
+		this.document = doc;
 		this.initHandlers();
+	}
+
+	get document() {
+		if (!this._doc) throw new Error('Document not set');
+
+		return this._doc;
+	}
+
+	set document(doc) {
+		this._doc = doc;
 	}
 
 	initHandlers() {
@@ -16,17 +26,17 @@ export class SelectionController {
 			}
 		};
 
-		this.doc.addEventListener('mousedown', e => {
+		this.document.addEventListener('mousedown', e => {
 			if (!e.shiftKey) {
-				this.doc.getSelection().removeAllRanges();
+				this.document.getSelection().removeAllRanges();
 				this.selectionHandler();
 			}
 		});
 
 		// ### selecting text and processing ranges
-		this.doc.addEventListener('mouseup', handler.bind(this));
+		this.document.addEventListener('mouseup', handler.bind(this));
 
-		this.doc.addEventListener('keyup', e => {
+		this.document.addEventListener('keyup', e => {
 			switch(e.key) {
 				case 'Shift' :
 					if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
@@ -60,7 +70,7 @@ export class SelectionController {
 	}
 
 	ensureSelectedRange(allowZeroLength = false) {
-		const sel = this.doc.getSelection();
+		const sel = this.document.getSelection();
 
 		if(sel.type == 'Range' && sel.rangeCount){
 			const rng = sel.getRangeAt(0);
@@ -75,7 +85,7 @@ export class SelectionController {
 	}
 
 	getSelectedNodes() {
-		const sel = this.doc.getSelection();
+		const sel = this.document.getSelection();
 		const nodes = [];
 
 		const parent = this.getWorkNodeForCurrentSelection();
@@ -89,7 +99,7 @@ export class SelectionController {
 	}
 
 	selectNodes(...nodes) {
-		const sel = this.doc.getSelection();
+		const sel = this.document.getSelection();
 		const rng = sel.getRangeAt(0);
 
 		sel.removeAllRanges();
@@ -163,7 +173,7 @@ export class SelectionController {
 	}
 
 	extendSelectionByNode(node, direction, range) {
-		const sel = this.doc.getSelection();
+		const sel = this.document.getSelection();
 
 		if ('start' === direction) {
 			range.setStart(node, 0);
@@ -179,7 +189,7 @@ export class SelectionController {
 	}
 
 	resetSelectionByRange(range) {
-		const sel = this.doc.getSelection();
+		const sel = this.document.getSelection();
 		sel.removeAllRanges();
 		sel.addRange(range);
 	}
@@ -194,3 +204,9 @@ export class SelectionController {
 		}
 	}
 }
+
+export default {
+	create(doc) {
+		return new SelectionController(doc);
+	}
+};

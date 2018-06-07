@@ -1,6 +1,6 @@
-import {PluginBase} from '../plugin-base.js';
+import Composer from '../../composer.js';
 
-export class StrikeThroughPlugin extends PluginBase {
+export class StrikeThroughPlugin extends Composer.compose('pluggable') {
 
 	get key() {
 		return 'strikethrough';

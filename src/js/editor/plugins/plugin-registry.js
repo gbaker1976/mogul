@@ -1,4 +1,4 @@
-import emitterMixin from '../emitter.js';
+import Composer from '../composer.js';
 import {ImagePlugin} from './image/plugin.js';
 import {AnchorPlugin} from './anchor/plugin.js';
 import {BoldPlugin} from './bold/plugin.js';
@@ -7,7 +7,7 @@ import {UnderlinePlugin} from './underline/plugin.js';
 import {StrikeThroughPlugin} from './strikethrough/plugin.js';
 import {HeadingPlugin} from './heading/plugin.js';
 
-export class PluginRegistry extends emitterMixin(Object) {
+export class PluginRegistry extends Composer.compose('emitter') {
 	constructor() {
 		super();
 	}

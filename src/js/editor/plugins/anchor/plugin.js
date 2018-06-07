@@ -1,6 +1,6 @@
-import {PluginBase} from '../plugin-base.js';
+import Composer from '../../composer.js';
 
-export class AnchorPlugin extends PluginBase {
+export class AnchorPlugin extends Composer.compose('pluggable') {
 
 	get key() {
 		return 'hashtag';

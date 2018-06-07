@@ -1,6 +1,4 @@
-export class PluginBase {
-	constructor() {}
-
+export default Base => class extends Base {
 	get command() {
 		throw new Error('You must override this getter');
 	}
@@ -26,4 +24,4 @@ export class PluginBase {
 	checkValidNode(node) {
 		throw new Error('You must override this method');
 	}
-}
+};

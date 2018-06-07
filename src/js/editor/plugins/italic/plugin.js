@@ -1,6 +1,6 @@
-import {PluginBase} from '../plugin-base.js';
+import Composer from '../../composer.js';
 
-export class ItalicPlugin extends PluginBase {
+export class ItalicPlugin extends Composer.compose('pluggable') {
 
 	get key() {
 		return 'italic';

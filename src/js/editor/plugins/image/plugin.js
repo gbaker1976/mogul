@@ -1,6 +1,6 @@
-import {PluginBase} from '../plugin-base.js';
+import Composer from '../../composer.js';
 
-export class ImagePlugin extends PluginBase {
+export class ImagePlugin extends Composer.compose('pluggable') {
 
 	constructor() {
 		super();

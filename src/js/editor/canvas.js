@@ -1,20 +1,12 @@
 import Composer from './composer.js';
-import {SelectionController} from './selection-controller.js';
+import SelectionController from './selection-controller.js';
 import {HtmlUtils} from './html-utils.js';
-import {RegionManager} from './region-manager.js';
+import RegionManager from './region-manager.js';
 
 class Canvas extends Composer.compose('emitter', 'configurable', 'control', 'proxyable') {
-	get regionManager() {
-		if (!this._regionManager) {
-			this._regionManager = new RegionManager(this.doc);
-		}
-
-		return this._regionManager;
-	}
-
 	get selectionController() {
 		if (!this._selectionController) {
-			this._selectionController = new SelectionController(this.doc);
+			this._selectionController = SelectionController.create(this.doc);
 		}
 
 		return this._selectionController;
@@ -102,7 +94,7 @@ class Canvas extends Composer.compose('emitter', 'configurable', 'control', 'pro
 	// #### /TOOLBAR
 
 	initRegions() {
-		this.regionManager.initRegions();
+		RegionManager.instance.initRegions(this.doc);
 	}
 
 	updateEditingContext() {
