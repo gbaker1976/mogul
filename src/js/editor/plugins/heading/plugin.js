@@ -36,7 +36,7 @@ export class HeadingPlugin extends PluginBase {
 		return el;
 	}
 
-	getAspects() {
+	get aspects() {
 		return {
 			toolbar: [
 				{key: this.key, command: 'h1', controller: this},
@@ -50,6 +50,6 @@ export class HeadingPlugin extends PluginBase {
 	}
 
 	checkValidNode(node) {
-		return !!this.getAspects().toolbar.map(i => {i.command === node.nodeName.toLowerCase()}).length;
+		return !!this.aspects.toolbar.map(i => {i.command === node.nodeName.toLowerCase()}).length;
 	}
 }

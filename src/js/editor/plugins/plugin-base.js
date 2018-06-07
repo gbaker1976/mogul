@@ -5,12 +5,12 @@ export class PluginBase {
 		throw new Error('You must override this getter');
 	}
 
-	invoke(command, ...opts) {
-		throw new Error('You must override this method');
+	get aspects() {
+		throw new Error('you must override this method');
 	}
 
-	getAspects() {
-		throw new Error('you must override this method');
+	invoke(command, ...opts) {
+		throw new Error('You must override this method');
 	}
 
 	checkStateForNode(node) {

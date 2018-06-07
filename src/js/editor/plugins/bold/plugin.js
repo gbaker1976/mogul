@@ -21,6 +21,14 @@ export class BoldPlugin extends PluginBase {
 		return this.invoke.bind(this);
 	}
 
+	get aspects() {
+		return {
+			toolbar: [
+				{key: this.key, command: this.key, controller: this}
+			]
+		}
+	}
+
 	invoke(command, ...opts) {
 		switch (command) {
 			case 'init' :
@@ -39,14 +47,6 @@ export class BoldPlugin extends PluginBase {
 	doEdit(proxy) {
 		proxy.styleSelection(this.styleClass, this.element);
 		proxy.resetEditingContext();
-	}
-
-	getAspects() {
-		return {
-			toolbar: [
-				{key: this.key, command: this.key, controller: this}
-			]
-		}
 	}
 
 	checkValidNode(node) {

@@ -1,16 +1,12 @@
-import {Control} from './control.js';
+import controlMixin from './control.js';
+import emitterMixin from './emitter.js';
+import configurableMixin from './configurable.js';
 import {SelectionController} from './selection-controller.js';
 import {HtmlUtils} from './html-utils.js';
 import {CanvasCommandProxy} from './canvas-command-proxy.js';
 import {RegionManager} from './region-manager.js';
 
-export class Canvas extends Control {
-	constructor(el, config = {}) {
-		super(el, config);
-
-		this.initHandlers();
-	}
-
+class Canvas extends configurableMixin(emitterMixin(controlMixin(Object))) {
 	get commandProxy() {
 		if (!this.proxy) {
 			this.proxy = new CanvasCommandProxy(this);
@@ -44,7 +40,7 @@ export class Canvas extends Control {
 
 	onPluginRegistered(evt) {
 		// const plugin = evt.data.plugin;
-		// const aspects = plugin.getAspects();
+		// const aspects = plugin.aspects;
 		//
 		// if (aspects && aspects.dragDrop) {
 		// 	aspects.dragDrop.forEach(i => {
@@ -65,7 +61,9 @@ export class Canvas extends Control {
 		}
 	}
 
-	initControl() {
+	initControl(el) {
+		this.initHandlers();
+		super.initControl(el);
 		this.el.className = 'edit-canvas';
 		this.doc = this.el.contentWindow.document;
 
@@ -222,3 +220,12 @@ export class Canvas extends Control {
 		return newNode;
 	}
 };
+
+export default {
+	create(el, config) {
+		const canvas = new Canvas();
+		canvas.mergeConfig(config);
+		canvas.initControl(el);
+		return canvas;
+	}
+}

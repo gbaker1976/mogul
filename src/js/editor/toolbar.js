@@ -1,8 +1,10 @@
-import {Control} from './control.js';
+import controlMixin from './control.js';
+import emitterMixin from './emitter.js';
+import configurableMixin from './configurable.js';
 import {ToolbarCommandProxy} from './toolbar-command-proxy.js';
 import {HtmlUtils} from './html-utils.js';
 
-export class Toolbar extends Control {
+class Toolbar extends configurableMixin(emitterMixin(controlMixin(Object))) {
 	get availableToolbarItems() {
 		if (!this._availableToolbarItems) {
 			this._availableToolbarItems = [
@@ -46,7 +48,8 @@ export class Toolbar extends Control {
 		return this.proxy;
 	}
 
-	initControl() {
+	initControl(el) {
+		super.initControl(el);
 		this.initFontAwesome();
 		this.el.className = this.config.className;
 		this.buildMenu();
@@ -60,7 +63,7 @@ export class Toolbar extends Control {
 
 	onPluginRegistered(evt) {
 		const plugin = evt.data.plugin;
-		const aspects = plugin.getAspects();
+		const aspects = plugin.aspects;
 
 		if (aspects && aspects.toolbar) {
 			aspects.toolbar.forEach(i => {
@@ -187,3 +190,12 @@ export class Toolbar extends Control {
 		this.resetView();
 	}
 };
+
+export default {
+	create(el, config) {
+		const toolbar = new Toolbar();
+		toolbar.mergeConfig(config);
+		toolbar.initControl(el);
+		return toolbar;
+	}
+}

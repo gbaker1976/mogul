@@ -1,4 +1,4 @@
-export class Component extends HTMLElement {
+export class EdgarElement extends HTMLElement {
 	constructor(config) {
 		super();
 		this.config = config;

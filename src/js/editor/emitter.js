@@ -1,5 +1,6 @@
-export class Emitter {
-	constructor() {
+export default Base => class extends Base {
+	constructor(...args) {
+		super(...args);
 		this.handlers = {};
 	}
 

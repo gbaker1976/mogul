@@ -19,7 +19,7 @@ export class ImagePlugin extends PluginBase {
 		}
 	}
 
-	getAspects() {
+	get aspects() {
 		return {
 			toolbar: [
 				{key: 'image', command: 'loadImage', controller: this}

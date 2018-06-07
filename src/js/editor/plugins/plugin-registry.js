@@ -1,4 +1,4 @@
-import {Emitter} from '../emitter.js';
+import emitterMixin from '../emitter.js';
 import {ImagePlugin} from './image/plugin.js';
 import {AnchorPlugin} from './anchor/plugin.js';
 import {BoldPlugin} from './bold/plugin.js';
@@ -7,7 +7,7 @@ import {UnderlinePlugin} from './underline/plugin.js';
 import {StrikeThroughPlugin} from './strikethrough/plugin.js';
 import {HeadingPlugin} from './heading/plugin.js';
 
-export class PluginRegistry extends Emitter {
+export class PluginRegistry extends emitterMixin(Object) {
 	constructor() {
 		super();
 	}
@@ -28,7 +28,7 @@ export class PluginRegistry extends Emitter {
 	}
 
 	registerAspects(plugin) {
-		const aspects = plugin.getAspects();
+		const aspects = plugin.aspects;
 
 		for (let k in aspects) {
 			if (aspects.hasOwnProperty(k)) {

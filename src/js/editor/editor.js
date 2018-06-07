@@ -1,10 +1,10 @@
-import {Toolbar} from './toolbar.js';
-import {Canvas} from './canvas.js';
-import {Component} from './component.js';
+import ToolbarFactory from './toolbar.js';
+import CanvasFactory from './canvas.js';
+import {EdgarElement} from './edgar-element.js';
 import {Dispatcher} from './dispatcher.js';
 import {PluginRegistry} from './plugins/plugin-registry.js';
 
-export class Editor extends Component {
+export class Editor extends EdgarElement {
 	constructor() {
 		super();
 		this.initDispatcher();
@@ -64,7 +64,7 @@ export class Editor extends Component {
 		};
 
 		const toolbarEl = document.createElement('div');
-		this.toolbar = new Toolbar(toolbarEl, toolbarConfig);
+		this.toolbar = ToolbarFactory.create(toolbarEl, toolbarConfig);
 		this.dispatcher.register(this.toolbar);
 
 		this.shadow.appendChild(toolbarEl);
@@ -86,7 +86,7 @@ export class Editor extends Component {
 		const canvasEl = document.createElement('iframe');
 		// must add to the DOM first
 		this.shadow.appendChild(canvasEl);
-		this.canvas = new Canvas(canvasEl);
+		this.canvas = CanvasFactory.create(canvasEl);
 		this.dispatcher.register(this.canvas);
 
 		//// to be moved to palette panel once created...

@@ -34,7 +34,7 @@ export class AnchorPlugin extends PluginBase {
 		return document.createElement('a');
 	}
 
-	getAspects() {
+	get aspects() {
 		return {
 			toolbar: [
 				{key: this.key, command: 'insertAnchor', controller: this}

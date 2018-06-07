@@ -40,7 +40,7 @@ export class StrikeThroughPlugin extends PluginBase {
 		proxy.resetEditingContext();
 	}
 
-	getAspects() {
+	get aspects() {
 		return {
 			toolbar: [
 				{key: this.key, command: this.key, controller: this}

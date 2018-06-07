@@ -1,15 +1,8 @@
-import {Emitter} from './emitter.js';
-
-export class Control extends Emitter {
-	constructor(el, config) {
-		super();
+export default Base => class extends Base {
+	initControl(el) {
 		this.el = el;
 		this.initViewContainer();
-		this.config = this.mergeConfig(config);
-		this.initControl();
 	}
-
-	initControl() {}
 
 	initViewContainer() {
 		const viewNode = document.createElement('div');
@@ -19,10 +12,6 @@ export class Control extends Emitter {
 	setPosition(rect) {
 		this.el.style.top = `${rect.y}px`;
 		this.el.style.left = `${rect.x}px`;
-	}
-
-	mergeConfig(config = {}) {
-		return Object.assign({}, this.defaultConfig, config);
 	}
 
 	show() {
