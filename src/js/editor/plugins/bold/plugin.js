@@ -13,7 +13,7 @@ export class BoldPlugin extends Composer.compose('pluggable') {
 
 	get element() {
 		let el = document.createElement('span');
-		el.classList.add(this.styleClass);
+		el.dataset.styling="combine";
 		return el;
 	}
 

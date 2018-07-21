@@ -12,7 +12,6 @@ export class ItalicPlugin extends Composer.compose('pluggable') {
 
 	get element() {
 		let el = document.createElement('span');
-		el.classList.add(this.styleClass);
 		return el;
 	}
 

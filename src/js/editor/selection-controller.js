@@ -84,16 +84,16 @@ class SelectionController {
 		}
 	}
 
-	getSelectedNodes() {
+	getSelectedNodes(deep = false) {
 		const sel = this.document.getSelection();
 		const nodes = [];
-
 		const parent = this.getWorkNodeForCurrentSelection();
-		HtmlUtils.iterateNodes([parent], n => {
+
+		HtmlUtils.iterateNodes(parent.childNodes, n => {
 			if (sel.containsNode(n)) {
 				nodes.push(n);
 			}
-		}, true);
+		}, deep);
 
 		return nodes;
 	}

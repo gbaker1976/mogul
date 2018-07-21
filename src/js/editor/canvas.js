@@ -114,43 +114,51 @@ class Canvas extends Composer.compose('emitter', 'configurable', 'control', 'pro
 	styleSelection(styleClass, element) {
 		const range = this.selectionController.getRangeForCurrentSelection();
 		let workNode = this.selectionController.getWorkNodeForCurrentSelection(true);
-		let nodes = [];
 
 		if (this.selectionController.isMultiNodeSelection()) {
-			this.selectionController.getSelectedNodes().forEach((n, i, arr) => {
-				if (range.startContainer === n) {
-					nodes = HtmlUtils.splitNode(n.cloneNode(true), range.startOffset);
-					if (nodes && nodes.length > 0) {
-						nodes[1] = this.wrapNode(nodes[1].cloneNode(true), element.cloneNode(true));
-						HtmlUtils.replace(n, ...nodes);
-						arr[i] = nodes[1];
-					}
-				} else if (range.endContainer === n) {
-					nodes = HtmlUtils.splitNode(n.cloneNode(true), range.endOffset);
-					if (nodes && nodes.length > 0) {
-						nodes[0] = this.wrapNode(nodes[0].cloneNode(true), element.cloneNode(true));
-						HtmlUtils.replace(n, ...nodes);
-						arr[i] = nodes[0];
-					}
-				} else {
-					workNode = n;
-					if (n.nodeType === 3) {
-						workNode = this.wrapNode(n.cloneNode(true), element.cloneNode(true))
-						HtmlUtils.replace(n, workNode);
-					} else {
-						workNode.classList.toggle(styleClass);
-					}
 
-					if (!workNode.classList.length) {
-						this.spliceNodesIfBare(workNode);
-					}
-					arr[i] = workNode;
-				}
+			this.selectionController.selectNodes(
+				...this.selectionController.getSelectedNodes(true)
+					.map(node => {
+						let nodes = [];
 
-				if (i === arr.length-1) {
-					this.selectionController.selectNodes(...arr);
-				}
-			});
+						if (range.startContainer === node) {
+							if (range.startOffset > 0) {
+								nodes = HtmlUtils.splitNode(node.cloneNode(true), range.startOffset);
+								HtmlUtils.replace(node, ...nodes);
+								return nodes[1];
+							}
+						} else if (range.endContainer === node) {
+							if (range.endOffset < node.nodeValue.length-1) {
+								nodes = HtmlUtils.splitNode(node.cloneNode(true), range.endOffset);
+								HtmlUtils.replace(node, ...nodes);
+								return nodes[0];
+							}
+						}
+
+						return node;
+					})
+					.map(node => {
+						let newNode;
+						if (node.nodeType === 3) {
+							if (node.parentElement.dataset && node.parentElement.dataset.styling === 'combine') {
+								node.parentElement.classList.toggle(styleClass);
+							} else {
+								newNode = this.wrapNode(node.cloneNode(true), element.cloneNode(true));
+								HtmlUtils.replace(node, newNode);
+								newNode.classList.toggle(styleClass);
+								return newNode;
+							}
+						}
+						return node;
+					})
+					.map(node => {
+						if (node.nodeType === 1 && !node.classList.length) {
+							this.spliceNodesIfBare(node);
+						}
+						return node;
+					})
+			);
 		} else {
 			if (this.selectionController.containsFullNodeContents(range)) {
 				workNode.classList.toggle(styleClass);
@@ -160,6 +168,8 @@ class Canvas extends Composer.compose('emitter', 'configurable', 'control', 'pro
 				}
 			} else {
 				this.wrapCurrentSelection(element);
+				workNode = this.selectionController.getWorkNodeForCurrentSelection(true);
+				workNode.classList.toggle(styleClass);
 			}
 		}
 	}
